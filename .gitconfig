@@ -1,0 +1,10 @@
+[user]
+	name = VoltBolt-uni
+	email = o2511052@gl.cc.uec.ac.jp
+[difftool "sourcetree"]
+	cmd = "'' "
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = true
+[core]
+	autocrlf = true
