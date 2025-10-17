@@ -67,4 +67,6 @@
         "*.sln": "*.csproj"
     },
     "dotnet.defaultSolution": "Making-RPG.sln"
+
+    "dotnet.defaultSolution": "RPG 10.4.sln"
 }
