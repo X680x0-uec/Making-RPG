@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-
+using UnityEngine.EventSystems;
 
 public class Panel : MonoBehaviour
 {
+
     public GameObject targetPanel;
     public TMPro.TextMeshProUGUI displayMessageText;
 
@@ -16,11 +17,17 @@ public class Panel : MonoBehaviour
         {
             targetPanel.SetActive(false);
         }
-
-
     }
 
-    public void TogglePanelTatakau()
+    private void Deselect()
+    {
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    public void TogglePanelAttack()
     {
         if (targetPanel != null)
         {
@@ -31,19 +38,22 @@ public class Panel : MonoBehaviour
                 displayMessageText.text = "学生はたたかった！ABのダメージ！";
             }
 
-
             StartCoroutine(Paneloff());
+            Deselect();
         }
     }
 
-    public void TogglePanelJyumonn()
+    public void TogglePanelMagic()
     {
         if (targetPanel != null)
         {
             targetPanel.SetActive(true);
 
             StartCoroutine(Paneloff());
+            Deselect();
         }
     }
+
 }
+
 
