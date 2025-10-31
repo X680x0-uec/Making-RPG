@@ -10,6 +10,16 @@ public class Panel : MonoBehaviour
     public GameObject targetPanel;
     public TMPro.TextMeshProUGUI displayMessageText;
     
+    void Start()
+    {
+        if (displayMessageText.text != null)
+            {
+                displayMessageText.text = "敵が現れた";
+            }
+
+            StartCoroutine(Paneloff());
+    }
+    
     private IEnumerator Paneloff()
     {
         yield return new WaitForSeconds(3.0f);
