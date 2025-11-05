@@ -14,6 +14,8 @@ public class Item : ScriptableObject
     public enum Effects // 効果一覧
     {
         Damage,  // 敵に一定のダメージを与える
+        HPRecover, // HP回復
+        MPRecover, // MP回復
         AttackUp,  // 攻撃力上昇
         DefenseUp, // 防御力上昇
         MagicUP, // 魔法の威力上昇
@@ -21,7 +23,7 @@ public class Item : ScriptableObject
         SpeedUp,  // 素早さ上昇
         StatusUp, // 全てのステータスを上昇(会心発生率アップを除く)
         Jamming, // 敵の動きを止める
-        Revive,  // 一度だけ復活
+        Revive,  // 復活
         None // 何も起きない
     }
 
@@ -43,7 +45,8 @@ public class Item : ScriptableObject
     public Targets target;
     public int param;  // アイテム使用時効果の具体的なパラメータを設定する 
     // 例: Damageなら、ダメージ量 
-    //     ~Up系はステータス上昇量 
+    //     HPRecover、MPRecoverなら回復量
+    //     ~Up系はステータス上昇倍率
     //     JammingやRevive その回数を指定する
 
     public Item(Item item)
@@ -53,5 +56,7 @@ public class Item : ScriptableObject
         this.text = item.text;
         this.id = item.id;
         this.effect = item.effect;
+        this.target = item.target;
+        this.param = item.param;
     }
 }
