@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24e863c23d37c5429ddf9b476df2bd6, type: 3}
-  m_Name: CreateItemDataBase
+  m_Script: {fileID: 11500000, guid: 11311596da4620748b5568b947b00a11, type: 3}
+  m_Name: "\u30D0\u30EC\u30FC\u30DC\u30FC\u30EB"
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 7e39f2de46bdf8341bcbb9cf3dd8618b, type: 2}
+  type: 0
+  infomation: 
+  text: 
+  place: "\u4F53\u80B2\u9928"
+  id: 257
+  effect: 0
+  target: 1
+  param: 200
