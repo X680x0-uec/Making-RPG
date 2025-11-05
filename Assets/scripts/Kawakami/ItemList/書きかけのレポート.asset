@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: "\u66F8\u304D\u304B\u3051\u306E\u30EC\u30DD\u30FC\u30C8"
   m_EditorClassIdentifier: 
   type: 1
-  infomation: 
+  infomation: "\u3053\u3053\u304B\u3089\u541B\u306E\u7269\u8A9E\u304C\u59CB\u307E\u308B(\u4EEE)"
   text: 
+  place: "\u4E3B\u4EBA\u516C\u306E\u5BB6"
   id: 0
-  effect: 6
+  effect: 9
+  target: 4
+  param: 0
