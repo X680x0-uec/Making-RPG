@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11311596da4620748b5568b947b00a11, type: 3}
-  m_Name: "\u30D0\u30EC\u30FC\u30DC\u30FC\u30EB"
+  m_Name: "\u6559\u79D1\u66F8"
   m_EditorClassIdentifier: 
-  type: 0
+  item_name: "\u6559\u79D1\u66F8"
+  type: 1
   infomation: 
   text: 
-  place: "\u4F53\u80B2\u9928"
-  id: 257
-  effect: 0
-  target: 1
-  param: 200
+  place: "\u9053\u7AEF"
+  id: 1
+  effect: 8
+  target: 0
+  param: 20
+  duration: 0
