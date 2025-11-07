@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -7,8 +8,8 @@ public class Item : ScriptableObject
 {
     public enum Type // 実装するItemの種類
     {
-        UsableItem,  // 使用可能なアイテム
-        KeyItem  // 使用不可能なアイテム(恒常ステータスアップアイテムもこれに含む)
+        UsableItem,  // 使用可能なアイテム id: 256~
+        KeyItem  // 使用不可能なアイテム(恒常ステータスアップアイテムもこれに含む) id: 0~255
     }
 
     public enum Effects // 効果一覧
@@ -66,14 +67,14 @@ public class Item : ScriptableObject
     }
 
     //アイテム使用時のロジック
-    public void Use(List<Character> targets)
+    public void Use(Character[] targets)
     {
         // Player userではなく、List<Character> targetsとかの方がいいかもしれない(アイテムは自分だけでなく、敵(しかも複数)に対しても利用できるため)
         // この辺の仕様をどうするかは要話し合い
 
         // これはUseの前の方がいいかもしれない
         // Debug.Log($"{targets[0].charaName}は{this.item_name}を使った！");
-        Debug.log(this.text); // 使用時テキスト
+        Debug.Log(this.text); // 使用時テキスト
 
         // 配列の中身を順に参照
         for (int i = 0; i < targets.Length; i++)
@@ -99,12 +100,12 @@ public class Item : ScriptableObject
 
                 case Effects.AttackUp:
                     // ここではthis.paramは攻撃力上昇(下降)倍率
-                    targets[i].ApplyAttackBoost(this.param, this.duration);
+                    // targets[i].ApplyAttackBoost(this.param, this.duration);
                     break;
                 
                 case Effects.DefenseUp:
                     // ここではthis.paramは防御力上昇(下降)倍率
-                    targets[i].ApplyDefenseBoost(this.param, this.duration);
+                    // targets[i].ApplyDefenseBoost(this.param, this.duration);
                     break;
 
                 case Effects.MagicUP:
@@ -147,4 +148,73 @@ public class Item : ScriptableObject
 
         //このタイミングでUseItemメソッドによりアイテムが消費される？
     }
+}
+
+public abstract class Character : MonoBehaviour
+{
+    public string charaName;
+    public float maxHP;
+    public float currentHP;
+    public float Attack;
+    public float Defense;
+    public float Speed;
+    public float maxMP;
+    public float currentMP;
+
+    //バフ管理用プロパティ
+    //protected float speedADD = 0(多分使わない)
+    protected float speedMultiplier = 1f;
+    protected int speedBoostTurns = 0;
+
+    //実行素早さの取得
+    public int EffectiveSpeed => Mathf.RoundToInt(Speed * speedMultiplier);
+
+    //実行防御力のプロパティ
+    public abstract int EffectiveDefense{ get; }
+
+    //素早さバフの適用メソッド
+    public void ApplySpeedBoost(float multiplier, int duration)
+    {
+        float speedMultiplier = multiplier;
+        int speedBoostTurns = duration;
+        Debug.Log($"{charaName}の素早さが上昇した！");
+    }
+
+    //素早さバフのターン経過と解除の処理メソッド
+    public void DecrementSpeedBuffTurns()
+    {
+        if (speedBoostTurns > 0)
+        {
+            speedBoostTurns--;
+            if (speedBoostTurns == 0)
+            {
+                speedMultiplier = 1f;
+                Debug.Log($"{charaName}の素早さが元に戻った。");
+            }
+        }
+    }
+
+    //ダメージを受けるメソッド(PlayerとEnemyで防御力の計算が違うため実行防御力を使用した。)
+    public virtual void TakeDamage(float damage)
+    {
+        float effectiveDamage = Mathf.Max(0, damage - Defense);
+        currentHP -= effectiveDamage;
+        Debug.Log($"{charaName}は{effectiveDamage}のダメージを受けた！");
+
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+
+//死亡時の処理（抽象的に指定して、継承先で具体的に実装する）
+protected abstract void Die();
+
+//行動実行時の抽象的メソッド
+public abstract void PerformAction(Character target);
+
+//前場符のターンを減らす処理
+public abstract void DecrementBuffTurns();
+
 }
