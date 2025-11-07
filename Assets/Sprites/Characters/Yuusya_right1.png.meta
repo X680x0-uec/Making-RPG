@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Yuusya_right1_0: -588713121069632859
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
