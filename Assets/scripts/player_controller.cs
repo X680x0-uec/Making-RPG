@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class player_controller : MonoBehaviour
 {
@@ -17,11 +18,11 @@ public class player_controller : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-        move = new Vector2(x, y);
+        move = new Vector2(Math.Abs(x) >= Math.Abs(y) ? x : 0, Math.Abs(y) > Math.Abs(x) ? y : 0);
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + move.normalized * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
     }
 }
