@@ -1,5 +1,5 @@
-
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class player_star : MonoBehaviour
 {
@@ -21,12 +21,9 @@ public class player_star : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
-        if (collision.tag == "library")
+        else if (collision.tag == "door")
         {
-            Static.playerAttack += 10;
-            collision.gameObject.SetActive(false);
-            text.placenumber = 1;
-            text.StartPlace();
+            SceneManager.LoadScene("Facility");//移動先のシーンの名前を必ずshopにしてください！
         }
     }
 }

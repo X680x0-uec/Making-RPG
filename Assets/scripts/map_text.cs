@@ -30,6 +30,7 @@ public class map_text : MonoBehaviour
         Static.talkbox = true;
         StartCoroutine(DisplayLine(facility[placenumber], waits));
     }
+    // 文字列を順に表示していく
     public IEnumerator DisplayLine(string text, float seconds)
     {
         target.text = "";
