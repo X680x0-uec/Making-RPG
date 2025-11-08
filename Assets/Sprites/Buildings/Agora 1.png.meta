@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c89f3c6350071645a808015cbb73d2a
+guid: ff29e9a668cef9f48b1a7cbf7544a5f6
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -113,15 +113,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Agora_0
+      name: Agora_1
       rect:
         serializedVersion: 2
         x: 30
-        y: 12
+        y: 320
         width: 440
-        height: 448
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 140
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Agora_0: -723424192
+      Agora_1: -723424192
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
