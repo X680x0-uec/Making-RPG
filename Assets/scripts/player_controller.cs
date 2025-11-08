@@ -27,7 +27,7 @@ public class player_controller : MonoBehaviour
         x = Math.Abs(x) >= Math.Abs(y) ? x : 0;
         y = Math.Abs(y) > Math.Abs(x) ? y : 0;
 
-        if (Mathf.FloorToInt(x) != 0 || Mathf.FloorToInt(y) != 0) 
+        if ((Mathf.FloorToInt(x) != 0 || Mathf.FloorToInt(y) != 0) && Time.timeScale != 0f)
         {   
             animator.speed = 1;
             animator.SetFloat (idX, x);
