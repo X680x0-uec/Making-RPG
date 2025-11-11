@@ -1,25 +1,25 @@
-// ƒtƒ@ƒCƒ‹–¼: BattleManager.cs
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½: BattleManager.cs
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// í“¬‘S‘Ì‚Ì—¬‚êió‘Ôj‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// ï¿½í“¬ï¿½Sï¿½Ì‚Ì—ï¿½ï¿½ï¿½iï¿½ï¿½Ôjï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
     public enum BattleState { SETUP, PLAYERTURN, ENEMYTURN, WIN, LOSE }
     public BattleState currentState;
 
-    [Header("ƒLƒƒƒ‰ƒNƒ^[QÆ")]
+    [Header("ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½Qï¿½ï¿½")]
     [SerializeField] private PlayerController player;
     [SerializeField] private Transform enemySpawnPoint;
-    private EnemyController enemy;
+    private EnemyController_sub enemy;
 
-    [Header("“Gƒf[ƒ^")]
-    [SerializeField] private EnemyData[] enemyDatabase; // ScriptableObject‚Ì”z—ñ
+    [Header("ï¿½Gï¿½fï¿½[ï¿½^")]
+    [SerializeField] private EnemyData[] enemyDatabase; // ScriptableObjectï¿½Ì”zï¿½ï¿½
 
-    [Header("UIQÆ")]
+    [Header("UIï¿½Qï¿½ï¿½")]
     [SerializeField] private BattleUI battleUI;
 
     void Start()
@@ -28,27 +28,27 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// í“¬€”õƒRƒ‹[ƒ`ƒ“
+    /// ï¿½í“¬ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½
     /// </summary>
     private IEnumerator SetupBattle()
     {
         currentState = BattleState.SETUP;
 
-        // GameManager‚©‚ç“GID‚ğæ“¾‚µAŠY“–‚·‚é“G‚ğ¶¬
+        // GameManagerï¿½ï¿½ï¿½ï¿½GIDï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Aï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½ğ¶ï¿½
         int enemyId = GameManager.Instance != null ? GameManager.Instance.enemyNumberToBattle : 0;
         EnemyData enemyToLoad = enemyDatabase[enemyId];
         GameObject enemyInstance = Instantiate(enemyToLoad.prefab, enemySpawnPoint);
-        enemy = enemyInstance.GetComponent<EnemyController>();
+        enemy = enemyInstance.GetComponent<EnemyController_sub>();
         enemy.Setup(enemyToLoad);
 
-        // UI‚Ì‰Šúİ’è
+        // UIï¿½Ìï¿½ï¿½ï¿½ï¿½İ’ï¿½
         battleUI.SetupUI(player, enemy);
 
-        // ƒCƒxƒ“ƒgw“Ç
+        // ï¿½Cï¿½xï¿½ï¿½ï¿½gï¿½wï¿½ï¿½
         player.OnDied += OnPlayerDied;
         enemy.OnDied += OnEnemyDied;
 
-        yield return battleUI.ShowMessage($"{enemy.name} ‚ªŒ»‚ê‚½I");
+        yield return battleUI.ShowMessage($"{enemy.name} ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½I");
 
         StartPlayerTurn();
     }
@@ -66,18 +66,18 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“‚ğŠJn
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒ^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½n
     /// </summary>
     private void StartPlayerTurn()
     {
         currentState = BattleState.PLAYERTURN;
-        player.isDefending = false; // ‘O‚Ìƒ^[ƒ“‚Ì–hŒäó‘Ô‚ğƒŠƒZƒbƒg
-        battleUI.ShowMessage("‚ ‚È‚½‚Ìƒ^[ƒ“", 0.5f); // ‘Ò‚½‚¸‚ÉŸ‚Ìˆ—‚Ö
+        player.isDefending = false; // ï¿½Oï¿½Ìƒ^ï¿½[ï¿½ï¿½ï¿½Ì–hï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
+        battleUI.ShowMessage("ï¿½ï¿½ï¿½È‚ï¿½ï¿½Ìƒ^ï¿½[ï¿½ï¿½", 0.5f); // ï¿½Ò‚ï¿½ï¿½ï¿½ï¿½Éï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
         battleUI.SetPlayerControls(true);
     }
 
     /// <summary>
-    /// UŒ‚ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+    /// ï¿½Uï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
     /// </summary>
     public void OnAttackButton()
     {
@@ -86,7 +86,7 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// –hŒäƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+    /// ï¿½hï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
     /// </summary>
     public void OnDefendButton()
     {
@@ -95,7 +95,7 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// “¦‚°‚éƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
     /// </summary>
     public void OnEscapeButton()
     {
@@ -106,7 +106,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator PlayerAttackRoutine()
     {
         battleUI.SetPlayerControls(false);
-        yield return battleUI.ShowMessage("‚ä‚¤‚µ‚á ‚Ì‚±‚¤‚°‚«I");
+        yield return battleUI.ShowMessage("ï¿½ä‚¤ï¿½ï¿½ï¿½ï¿½ ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I");
         enemy.TakeDamage(player.attackPower);
         yield return new WaitForSeconds(1.5f);
 
@@ -117,7 +117,7 @@ public class BattleManager : MonoBehaviour
     {
         battleUI.SetPlayerControls(false);
         player.isDefending = true;
-        yield return battleUI.ShowMessage("‚ä‚¤‚µ‚á ‚Í–hŒä‚Ìp¨‚ğ‚Æ‚Á‚½B");
+        yield return battleUI.ShowMessage("ï¿½ä‚¤ï¿½ï¿½ï¿½ï¿½ ï¿½Í–hï¿½ï¿½Ìpï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½B");
         yield return new WaitForSeconds(1.5f);
 
         StartCoroutine(EnemyTurnRoutine());
@@ -126,16 +126,16 @@ public class BattleManager : MonoBehaviour
     private IEnumerator PlayerEscapeRoutine()
     {
         battleUI.SetPlayerControls(false);
-        // 50%‚ÌŠm—¦‚Å¬Œ÷
+        // 50%ï¿½ÌŠmï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½
         if (Random.value > 0.5f)
         {
-            yield return battleUI.ShowMessage("‚¤‚Ü‚­“¦‚°‚«‚ê‚½I");
+            yield return battleUI.ShowMessage("ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½I");
             yield return new WaitForSeconds(1.5f);
-            SceneManager.LoadScene("Main"); // MainƒV[ƒ“‚Ì–¼‘O‚ğ“K‹X•ÏX‚µ‚Ä‚­‚¾‚³‚¢
+            SceneManager.LoadScene("Main"); // Mainï¿½Vï¿½[ï¿½ï¿½ï¿½Ì–ï¿½ï¿½Oï¿½ï¿½Kï¿½Xï¿½ÏXï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
-            yield return battleUI.ShowMessage("‚µ‚©‚µA‰ñ‚è‚Ü‚ê‚Ä‚µ‚Ü‚Á‚½I");
+            yield return battleUI.ShowMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½èï¿½Ü‚ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½I");
             yield return new WaitForSeconds(1.5f);
             StartCoroutine(EnemyTurnRoutine());
         }
@@ -144,7 +144,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EnemyTurnRoutine()
     {
         currentState = BattleState.ENEMYTURN;
-        yield return battleUI.ShowMessage($"{enemy.name} ‚Ì‚±‚¤‚°‚«I");
+        yield return battleUI.ShowMessage($"{enemy.name} ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I");
         player.TakeDamage(enemy.attackPower);
         yield return new WaitForSeconds(1.5f);
 
@@ -153,20 +153,20 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WinRoutine()
     {
-        player.SaveHPToGameManager(); // HP‚ğGameManager‚É•Û‘¶
-        yield return battleUI.ShowMessage($"{enemy.name} ‚ğ‚â‚Á‚Â‚¯‚½I");
+        player.SaveHPToGameManager(); // HPï¿½ï¿½GameManagerï¿½É•Û‘ï¿½
+        yield return battleUI.ShowMessage($"{enemy.name} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½I");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Main"); // MainƒV[ƒ“‚Ì–¼‘O‚ğ“K‹X•ÏX‚µ‚Ä‚­‚¾‚³‚¢
+        SceneManager.LoadScene("Main"); // Mainï¿½Vï¿½[ï¿½ï¿½ï¿½Ì–ï¿½ï¿½Oï¿½ï¿½Kï¿½Xï¿½ÏXï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     private IEnumerator LoseRoutine()
     {
-        yield return battleUI.ShowMessage("‚ä‚¤‚µ‚á ‚Í“|‚ê‚Ä‚µ‚Ü‚Á‚½...");
+        yield return battleUI.ShowMessage("ï¿½ä‚¤ï¿½ï¿½ï¿½ï¿½ ï¿½Í“|ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½...");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Gameover"); // GameoverƒV[ƒ“‚Ì–¼‘O‚ğ“K‹X•ÏX‚µ‚Ä‚­‚¾‚³‚¢
+        SceneManager.LoadScene("Gameover"); // Gameoverï¿½Vï¿½[ï¿½ï¿½ï¿½Ì–ï¿½ï¿½Oï¿½ï¿½Kï¿½Xï¿½ÏXï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ƒIƒuƒWƒFƒNƒg”jŠü‚ÉƒCƒxƒ“ƒgw“Ç‚ğ‰ğœ
+    // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ÉƒCï¿½xï¿½ï¿½ï¿½gï¿½wï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½
     private void OnDestroy()
     {
         if (player != null) player.OnDied -= OnPlayerDied;

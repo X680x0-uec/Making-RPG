@@ -1,16 +1,16 @@
-// ƒtƒ@ƒCƒ‹–¼: EnemyController.cs
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½: EnemyController.cs
 using UnityEngine;
 
 /// <summary>
-/// í“¬’†‚Ì“G‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// ï¿½í“¬ï¿½ï¿½ï¿½Ì“Gï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
 /// </summary>
-public class EnemyController : CharacterStats
+public class EnemyController_sub : CharacterStats
 {
     [HideInInspector]
     public EnemyData enemyData;
 
     /// <summary>
-    /// EnemyData‚ÉŠî‚Ã‚¢‚Ä“G‚ğ‰Šú‰»‚·‚é
+    /// EnemyDataï¿½ÉŠï¿½Ã‚ï¿½ï¿½Ä“Gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void Setup(EnemyData data)
     {
@@ -20,14 +20,14 @@ public class EnemyController : CharacterStats
         attackPower = data.attackPower;
         defensePower = data.defensePower;
 
-        // base.Awake()‚Ìˆ—‚ğè“®‚ÅŒÄ‚Ño‚·
+        // base.Awake()ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è“®ï¿½ÅŒÄ‚Ñoï¿½ï¿½
         currentHP = maxHP;
     }
 
     protected override void Die()
     {
         base.Die();
-        // ‚±‚±‚É“G‚ª‚â‚ç‚ê‚½‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚âƒGƒtƒFƒNƒgˆ—‚È‚Ç‚ğ’Ç‰Á‚Å‚«‚é
+        // ï¿½ï¿½ï¿½ï¿½ï¿½É“Gï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÌƒAï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½È‚Ç‚ï¿½Ç‰ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
         gameObject.SetActive(false);
     }
 }
