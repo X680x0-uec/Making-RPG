@@ -1,43 +1,43 @@
-// ƒtƒ@ƒCƒ‹–¼: BattleUI.cs
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½: BattleUI.cs
 using System.Collections;
 using UnityEngine;
 using TMPro;
 using System;
 
 /// <summary>
-/// í“¬ƒV[ƒ“‚ÌUI•\¦‚ğ‚·‚×‚ÄŠÇ—‚·‚éƒNƒ‰ƒX
+/// ï¿½í“¬ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½UIï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‚ÄŠÇ—ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
 /// </summary>
 public class BattleUI : MonoBehaviour
 {
-    [Header("UI—v‘f")]
+    [Header("UIï¿½vï¿½f")]
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private GameObject talkBoxPanel;
     [SerializeField] private GameObject playerControlsPanel;
 
-    [Header("ƒvƒŒƒCƒ„[UI")]
+    [Header("ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[UI")]
     [SerializeField] private TextMeshProUGUI playerHPText;
 
-    [Header("“GUI")]
+    [Header("ï¿½GUI")]
     [SerializeField] private GameObject enemyInfoPanel;
     [SerializeField] private TextMeshProUGUI enemyNameText;
     [SerializeField] private TextMeshProUGUI enemyHPText;
 
     private PlayerController player;
-    private EnemyController enemy;
+    private EnemyController_sub enemy;
 
     /// <summary>
-    /// UI‚Ì‰Šúİ’è
+    /// UIï¿½Ìï¿½ï¿½ï¿½ï¿½İ’ï¿½
     /// </summary>
-    public void SetupUI(PlayerController p, EnemyController e)
+    public void SetupUI(PlayerController p, EnemyController_sub e)
     {
         player = p;
         enemy = e;
 
-        // ƒCƒxƒ“ƒgw“Ç
+        // ï¿½Cï¿½xï¿½ï¿½ï¿½gï¿½wï¿½ï¿½
         player.OnHPChanged += UpdatePlayerHP;
         enemy.OnHPChanged += UpdateEnemyHP;
 
-        // ‰Šú•\¦
+        // ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
         enemyNameText.text = enemy.name;
         UpdatePlayerHP(player.currentHP, player.maxHP);
         UpdateEnemyHP(enemy.currentHP, enemy.maxHP);
@@ -58,7 +58,7 @@ public class BattleUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒƒbƒZ[ƒW‚ğƒ^ƒCƒvƒ‰ƒCƒ^[Œ`®‚Å•\¦‚·‚é
+    /// ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½^ï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½^ï¿½[ï¿½`ï¿½ï¿½ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public Coroutine ShowMessage(string message, float waitTime = 1.5f)
     {
@@ -72,7 +72,7 @@ public class BattleUI : MonoBehaviour
         foreach (char c in message)
         {
             messageText.text += c;
-            yield return new WaitForSeconds(0.05f); // 1•¶š‚ ‚½‚è‚Ì•\¦‘¬“x
+            yield return new WaitForSeconds(0.05f); // 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½ï¿½ï¿½ï¿½x
         }
 
         yield return new WaitForSeconds(waitTime);
@@ -80,14 +80,14 @@ public class BattleUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ì‘€ìƒpƒlƒ‹‚Ì•\¦/”ñ•\¦‚ğØ‚è‘Ö‚¦‚é
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‘ï¿½ï¿½ï¿½pï¿½lï¿½ï¿½ï¿½Ì•\ï¿½ï¿½/ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½Ø‚ï¿½Ö‚ï¿½ï¿½ï¿½
     /// </summary>
     public void SetPlayerControls(bool isActive)
     {
         playerControlsPanel.SetActive(isActive);
     }
 
-    // ƒIƒuƒWƒFƒNƒg”jŠü‚ÉƒCƒxƒ“ƒgw“Ç‚ğ‰ğœ
+    // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ÉƒCï¿½xï¿½ï¿½ï¿½gï¿½wï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½
     private void OnDestroy()
     {
         if (player != null) player.OnHPChanged -= UpdatePlayerHP;

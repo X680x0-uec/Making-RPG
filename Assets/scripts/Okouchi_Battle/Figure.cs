@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public abstract class Figure : ScriptableObject
+public abstract class Figure : MonoBehaviour
 {
     public string charaName;
     public float maxHP;

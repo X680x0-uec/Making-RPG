@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-[CreateAssetMenu(fileName = "Enemy", menuName = "CreateEnemy")]
-public class Enemy : Figure
+public class EnemyController : Figure
 {
     private bool Charging = false; //溜め状態のフラグ
     private int turnCount = 0; //行動回数のカウント

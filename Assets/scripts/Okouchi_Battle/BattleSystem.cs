@@ -9,7 +9,7 @@ public enum BattleCommand { ATTACK, SPELL, DEFEND, ITEM, RUN}
 public class BattleSystem : MonoBehaviour
 {
     public Player player;
-    public Enemy enemy;
+    public EnemyController enemy;
 
     public BattleState state;
     private BattleCommand selectedCommand;
