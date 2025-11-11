@@ -5744,7 +5744,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 751920702}
   targetPanelMenu: {fileID: 1234711840}
-  itemNameText: {fileID: 0}
+  player: {fileID: 1812358738}
+  itemButtonPrefab: {fileID: 8916879736019330996, guid: 4ab124e45e86a46d08bec6d920a9d90c, type: 3}
+  buttonParentContainer: {fileID: 683772636}
 --- !u!1 &771979461
 GameObject:
   m_ObjectHideFlags: 0
@@ -7037,7 +7039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1234711841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8087,6 +8089,7 @@ GameObject:
   - component: {fileID: 1812358734}
   - component: {fileID: 1812358736}
   - component: {fileID: 1812358737}
+  - component: {fileID: 1812358738}
   m_Layer: 0
   m_Name: Scriptbox
   m_TagString: Untagged
@@ -8164,7 +8167,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 751920702}
   targetPanelMenu: {fileID: 1234711840}
-  itemNameText: {fileID: 0}
+  player: {fileID: 0}
+  itemButtonPrefab: {fileID: 0}
+  buttonParentContainer: {fileID: 0}
+--- !u!114 &1812358738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812358733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2fda90e828c544ba0271271cfb7ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charaName: 
+  maxHP: 0
+  currentHP: 0
+  Attack: 0
+  Defense: 0
+  Speed: 0
+  maxMP: 0
+  currentMP: 0
+  inventory: []
 --- !u!1 &1824941132
 GameObject:
   m_ObjectHideFlags: 0
