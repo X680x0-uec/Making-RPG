@@ -9,6 +9,7 @@ public class Panel : MonoBehaviour
     private System.Random randomGenerator = new System.Random(); 
     public GameObject targetPanel;
     public TMPro.TextMeshProUGUI displayMessageText;
+    [SerializeField] public BattleSystem BattleSystem;
     
     void Start()
     {

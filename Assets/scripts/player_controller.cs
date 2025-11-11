@@ -64,7 +64,6 @@ public class player_controller : MonoBehaviour
             {
                 UI_Encount.SetActive(true);
                 stop = true;
-                Debug.Log("ok");
                 cameraAnimator.SetTrigger("Encounter");
                 StartCoroutine("WAITTIME");
                 int randomenemy = UnityEngine.Random.Range(0, 3);
