@@ -8167,9 +8167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 751920702}
   targetPanelMenu: {fileID: 1234711840}
-  player: {fileID: 0}
-  itemButtonPrefab: {fileID: 0}
-  buttonParentContainer: {fileID: 0}
+  player: {fileID: 1812358738}
+  itemButtonPrefab: {fileID: 8916879736019330996, guid: 4ab124e45e86a46d08bec6d920a9d90c, type: 3}
+  buttonParentContainer: {fileID: 1234711843}
 --- !u!114 &1812358738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8190,7 +8190,9 @@ MonoBehaviour:
   Speed: 0
   maxMP: 0
   currentMP: 0
-  inventory: []
+  inventory:
+  - {fileID: 11400000, guid: 7e39f2de46bdf8341bcbb9cf3dd8618b, type: 2}
+  - {fileID: 11400000, guid: b810b5de9480092448d9dc6a178f3012, type: 2}
 --- !u!1 &1824941132
 GameObject:
   m_ObjectHideFlags: 0
