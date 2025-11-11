@@ -82,7 +82,7 @@ public void TogglePanelMenu()
     }
     
     // 2. インベントリをループし、アイテムごとにボタンを生成
-    for (int i = 0; i < player.inventory.Length; i++)
+    for (int i = 0; i < player.inventory.Count; i++)
     {
         var itemData = player.inventory[i]; // 現在のアイテムデータ
         
@@ -97,7 +97,7 @@ public void TogglePanelMenu()
         {
             // 💡 フィールド名が Item_name の場合は itemData.Item_name を使用
             // 💡 フィールド名が name の場合は itemData.name を使用 (一般的なのはこちら)
-            buttonText.text = itemData.name; 
+            buttonText.text = itemData.item_name; 
         }
 
         // 5. ボタンのOnClickイベントに機能（使う動作）を割り当てる
@@ -116,7 +116,7 @@ public void TogglePanelMenu()
 
     public void ToggleItem(int index)
     {
-        if (player.inventory.Length > index && index >= 0)
+        if (player.inventory.Count > index && index >= 0)
         {
             var itemToUse = player.inventory[index];//itemtouseを定義
         }
