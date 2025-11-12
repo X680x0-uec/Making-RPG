@@ -19,12 +19,16 @@ public class player_controller : MonoBehaviour
     private Vector2 move;
     private int idX = Animator.StringToHash("x"), idY = Animator.StringToHash("y");
 
+    private UIManager uiManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         UI_Encount.SetActive(false);
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     // Update is called once per frame
@@ -81,13 +85,30 @@ public class player_controller : MonoBehaviour
                 }
             }
         }
-        if(collision.tag == "danpen")
+        if (collision.tag == "danpen")
         {
             UI_Encount.SetActive(true);
             animator.SetTrigger("encount");
             StartCoroutine("WAITTIME");
             Static.enemynumber = 10;
         }
+        if (collision.tag == "Item")
+        {
+            if (uiManager != null)
+            {
+                uiManager.ShowItemGetPanel();
+            }
+            collision.gameObject.SetActive(false);
+        }
+        if(collision.tag == "enemy")
+        {
+            Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "Library_door")
+        {
+            SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
+        }
+
     }
     IEnumerator WAITTIME()
     {
