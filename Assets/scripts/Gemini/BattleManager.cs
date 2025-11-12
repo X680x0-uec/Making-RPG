@@ -91,9 +91,13 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage($"{ player.charaName }の攻撃！");
-        yield return battleUI.ShowMessage($"{ enemy.charaName }に{ enemy.TakeDamage(player.Attack) }のダメージを与えた！");
+        yield return battleUI.ShowMessage($"{ enemy.charaName }に{ enemy.TakeDamage(player.EffectiveAttack) }のダメージを与えた！");
 
-        if (!enemy.isDead) StartCoroutine(EnemyTurnRoutine());
+        if (!enemy.isDead) {
+            StartCoroutine(EnemyTurnRoutine());
+        } else {
+            StartCoroutine(WinRoutine());  // 勝ち
+        }
     }
 
     private IEnumerator PlayerDefendRoutine()
@@ -112,6 +116,7 @@ public class BattleManager : MonoBehaviour
         if (Random.value > 0.5f)
         {
             yield return battleUI.ShowMessage("逃げ切れた！", deactivate: false);
+            player.SaveHPToGameManager(); // HPをGameManagerに保存する
             SceneManager.LoadScene("Main"); // Mainを呼び出す。
         }
         else
@@ -125,7 +130,6 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage("アイテムを使った");
-
         StartCoroutine(EnemyTurnRoutine());
     }
 
@@ -134,9 +138,12 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.ENEMYTURN;
         yield return battleUI.ShowMessage($"{ enemy.charaName }の攻撃！");
         yield return battleUI.ShowMessage($"{ player.charaName }は{ player.TakeDamage(enemy.Attack) }のダメージを受けた！");
-        yield return new WaitForSeconds(0.25f);
 
-        if (!player.isDead) StartPlayerTurn();
+        if (!player.isDead) {
+            StartPlayerTurn();
+        } else {
+            StartCoroutine(LoseRoutine());
+        }
     }
 
     private IEnumerator WinRoutine()
@@ -148,8 +155,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator LoseRoutine()
     {
-        yield return battleUI.ShowMessage($"{ player.charaName }はやられてしまった...");
-        yield return new WaitForSeconds(2f);
+        yield return battleUI.ShowMessage($"{ player.charaName }はやられてしまった...", deactivate: false);
         SceneManager.LoadScene("Gameover"); // Gameoverシーンに切り替え
     }
 

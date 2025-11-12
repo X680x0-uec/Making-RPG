@@ -23,14 +23,22 @@ public class Player : Figure
             charaName = GameManager.Instance.playerName;
             maxHP = GameManager.Instance.playerHP;
             currentHP = GameManager.Instance.playerHPnow;
+            maxMP = GameManager.Instance.playerMP;
+            currentMP = GameManager.Instance.playerMPnow;
             Attack = GameManager.Instance.playerAttack;
             Defense = GameManager.Instance.playerDefence;
         }
         else
         {
-            // GameManager���Ȃ��ꍇ�i�e�X�g�p�j
+            // GameManagerの呼び出し
             base.Awake();
         }
+    }
+
+    //実行攻撃力
+    public override int EffectiveAttack
+    {
+        get { return Mathf.RoundToInt(Attack * attackMultiplier); }
     }
 
     //実行防御力(防御力・ぼうぎょコマンドを参照する)
@@ -98,15 +106,6 @@ public class Player : Figure
     {
         Debug.Log($"{charaName}は力尽きてしまった...");
         //ここにゲームオーバー時の処理を入れる
-    }
-
-
-    //ここからは戦闘時の処理の設定
-    public override void PerformAction(Figure target)
-    {
-        float damage = Mathf.RoundToInt(Attack * attackMultiplier);
-        target.TakeDamage(damage);
-        Debug.Log($"{charaName}の攻撃！　{damage}のダメージ！");
     }
 
     //呪文の実行処理（例）

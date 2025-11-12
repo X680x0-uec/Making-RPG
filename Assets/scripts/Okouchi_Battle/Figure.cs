@@ -33,6 +33,9 @@ public abstract class Figure : MonoBehaviour
     public int EffectiveSpeed => Mathf.RoundToInt(Speed * speedMultiplier);
 
     //実行防御力のプロパティ
+    public abstract int EffectiveAttack{ get; }
+
+    //実行防御力のプロパティ
     public abstract int EffectiveDefense{ get; }
 
     protected virtual void Awake()
@@ -65,17 +68,18 @@ public abstract class Figure : MonoBehaviour
     //ダメージを受けるメソッド(PlayerとEnemyで防御力の計算が違うため実行防御力を使用した。)
     public virtual float TakeDamage(float damage)
     {
-        float effectiveDamage = Mathf.Max(0, damage - Defense);
+        float effectiveDamage = Mathf.Max(0, damage - EffectiveDefense);
         currentHP -= effectiveDamage;
+        if ( currentHP <= 0 ) { currentHP = 0; isDead = true; }
+        if (OnHPChanged != null) {
+            OnHPChanged.Invoke(currentHP, maxHP);
+        }
         return effectiveDamage;
     }
 
 
 //死亡時の処理（抽象的に指定して、継承先で具体的に実装する）
 protected abstract void Die();
-
-//行動実行時の抽象的メソッド
-public abstract void PerformAction(Figure target);
 
 //前場符のターンを減らす処理
 public abstract void DecrementBuffTurns();
