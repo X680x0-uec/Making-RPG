@@ -16,6 +16,9 @@ public class Panel_menu : MonoBehaviour
 
     public Transform buttonParentContainer;//ボタンを縦に並べるオブジェクト
 
+    public Animator[] commandButtonAnimators;//Button_openitemlistのアニメーション
+
+    public Button[] commandButtons;//Button_opemitemlist自体のボタン
     private IEnumerator Paneloff()
     {
         yield return new WaitForSeconds(3.0f);
@@ -25,6 +28,45 @@ public class Panel_menu : MonoBehaviour
             targetPanelMenu.SetActive(false);
         }
     }
+
+   
+
+    //  Buttonコンポーネントを一時的にリセットするコルーチン
+    private IEnumerator ResetButtonStates()
+    {
+        // 全てのButtonコンポーネントを無効化
+        foreach(Button button in commandButtons)
+        {
+            if (button != null) button.enabled = false;
+        }
+
+
+        yield return null;
+        yield return null;
+        yield return null;
+
+        //全てのボタンを有効
+        foreach(Button button in commandButtons)
+        {
+            if (button != null) button.enabled = true;
+        }
+    }
+
+
+    private IEnumerator ResetAnimatorsAfterActive()
+    {
+        yield return new WaitForEndOfFrame(); // nullより遅い。UIが初期化されたあとに実行される
+
+        foreach (Animator anim in commandButtonAnimators)
+        {
+            if (anim != null)
+            {
+                anim.ResetTrigger("ResetToNormal");
+                anim.SetTrigger("ResetToNormal"); // Normalステートに戻す
+            }
+        }
+    }
+
 
 
     void Update()
@@ -37,28 +79,50 @@ public class Panel_menu : MonoBehaviour
 
     }
 
-    void ToggleMenu() //escキーを押した時
+ void ToggleMenu()//ESCキーを押した時
+{
+    bool isCurrentlyActive = menuPanel.activeSelf;
+    menuPanel.SetActive(!isCurrentlyActive);
+
+    if (!isCurrentlyActive)
     {
-        bool isCurrentlyActive = menuPanel.activeSelf;
+        Time.timeScale = 0f;
+        StartCoroutine(OpenMenuSequence());
+    }
+    else // メニューを閉じるとき
+{
+    Time.timeScale = 1f;
 
-        menuPanel.SetActive(!isCurrentlyActive);
+    if (targetPanelMenu.activeSelf)
+        targetPanelMenu.SetActive(false);
 
-        if (!isCurrentlyActive)
+    // 💡 Animatorパラメータのリセットを追加
+    foreach (Animator anim in commandButtonAnimators)
+    {
+        if (anim != null)
         {
-            Time.timeScale = 0f;
-        }
-        else // メニューを閉じるとき
-        {
-            Time.timeScale = 1f;
+            // Boolパラメータをリセット
+            anim.SetBool("Button_menu_highlighted", false);
+            anim.SetBool("Button_menu_normal", true);     // ← Normalに戻す
+            anim.SetBool("Button_menu_selected", false);
 
-            if (targetPanelMenu.activeSelf)
-            {
-                targetPanelMenu.SetActive(false);
-            }
+            // Trigger系も一応リセットしておく
+            anim.ResetTrigger("Button_menu_pressed");
+            anim.ResetTrigger("ResetToNormal");
+            anim.SetTrigger("ResetToNormal"); // Normal強制再生
         }
-
     }
 
+    StartCoroutine(ResetButtonStates());
+}
+}
+
+private IEnumerator OpenMenuSequence()
+{
+    yield return new WaitForEndOfFrame();
+    yield return StartCoroutine(ResetAnimatorsAfterActive());
+    yield return StartCoroutine(ResetButtonStates());
+}
 
 
 
