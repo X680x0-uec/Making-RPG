@@ -92,6 +92,6 @@ public class player_controller : MonoBehaviour
     IEnumerator WAITTIME()
     {
         yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene("New Battle");
     }
 }
