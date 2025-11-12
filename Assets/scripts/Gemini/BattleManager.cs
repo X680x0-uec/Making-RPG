@@ -69,6 +69,12 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(PlayerAttackRoutine());
     }
 
+    public void OnMagicButton()
+    {
+        if (currentState != BattleState.PLAYERTURN) return;
+        StartCoroutine(PlayerMagicRoutine());
+    }
+
     public void OnDefendButton()
     {
         if (currentState != BattleState.PLAYERTURN) return;
@@ -106,6 +112,14 @@ public class BattleManager : MonoBehaviour
         player.isDefending = true;
         yield return battleUI.ShowMessage($"{ player.charaName }は敵の攻撃から身を守る態勢に入った");
         StartCoroutine(EnemyTurnRoutine());
+    }
+
+    // 仮置き
+    private IEnumerator PlayerMagicRoutine()
+    {
+        // battleUI.SetPlayerControls(false);
+        yield return battleUI.ShowMessage("そんなものが使えたら人はレポートに苦しまないのさ(仮置き)");
+        StartPlayerTurn();
     }
 
     private IEnumerator PlayerEscapeRoutine()
@@ -149,7 +163,8 @@ public class BattleManager : MonoBehaviour
     private IEnumerator WinRoutine()
     {
         player.SaveHPToGameManager(); // HPをGameManagerに保存する
-        yield return battleUI.ShowMessage($"{ enemy.charaName }を倒した！");
+        Destroy(enemy.gameObject);
+        yield return battleUI.ShowMessage($"{ enemy.charaName }を倒した！", deactivate: false);
         SceneManager.LoadScene("Main"); // Mainシーンに切り替え
     }
 
