@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
@@ -57,10 +58,10 @@ public class Panel_menu : MonoBehaviour
 
         foreach (Animator anim in commandButtonAnimators)
         {
-            if (anim != null)
+            if (anim != null && anim != commandButtonAnimators[0])
             {
-                anim.ResetTrigger("ResetToNormal");
-                anim.SetTrigger("ResetToNormal"); // Normalステートに戻す
+                // anim.ResetTrigger("ResetToNormal");
+                // anim.SetTrigger("ResetToNormal"); // Normalステートに戻す
             }
         }
     }
@@ -97,19 +98,17 @@ public class Panel_menu : MonoBehaviour
                 if (anim != null)
                 {
                     // Boolパラメータをリセット
-                    anim.SetBool("Button_menu_highlighted", false);
-                    anim.SetBool("Button_menu_normal", true);     // ← Normalに戻す
                     anim.SetBool("Button_menu_selected", false);
 
                     // Trigger系も一応リセットしておく
                     anim.ResetTrigger("Button_menu_pressed");
                     anim.ResetTrigger("ResetToNormal");
-                    anim.SetTrigger("ResetToNormal"); // Normal強制再生
+                    anim.SetTrigger("ResetToNormal");
                 }
             }
 
             StartCoroutine(ResetButtonStates());
-
+            
             foreach (Transform child in buttonParentContainer)
             {   
                 if (child.gameObject.CompareTag("ItemButton"))
@@ -117,6 +116,7 @@ public class Panel_menu : MonoBehaviour
                     Destroy(child.gameObject);
                 }
             }
+
         }
     }
 
@@ -125,6 +125,13 @@ public class Panel_menu : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return StartCoroutine(ResetAnimatorsAfterActive());
         yield return StartCoroutine(ResetButtonStates());
+        yield return StartCoroutine(SetFirstSelectedButton());
+    }
+
+    public IEnumerator SetFirstSelectedButton()
+    {
+        yield return new WaitForEndOfFrame();
+        commandButtonAnimators[0].SetTrigger("Button_menu_highlighted");
     }
 
     public void TogglePanelMenu()
