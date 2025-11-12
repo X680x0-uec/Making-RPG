@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // �V���O���g���p�^�[���̎���
+        // このオブジェクトは破壊されない
         if (Instance == null)
         {
             Instance = this;

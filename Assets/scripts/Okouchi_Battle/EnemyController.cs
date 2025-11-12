@@ -17,16 +17,19 @@ public class EnemyController : Figure
         type = data.type;
         charaName = data.charaName;
         maxHP = data.maxHP;
+        currentHP = maxHP;
         Attack = data.Attack;
         Defense = data.Defense;
         Speed = data.Speed;
         maxMP = data.maxMP;
+        currentMP = maxMP;
         report_point = data.report_point;
     }
     
     private bool Charging = false; //溜め状態のフラグ
     private int turnCount = 0; //行動回数のカウント
 
+    public override int EffectiveAttack => Mathf.RoundToInt(Attack);
     public override int EffectiveDefense => Mathf.RoundToInt(Defense); //敵は防御バフがないので、実行防御力を基本防御と素早さバフのみ
 
     protected  override void Die()
@@ -42,6 +45,7 @@ public class EnemyController : Figure
     }
 
     //敵の行動AI
+    /*
     public override void PerformAction(Figure target)
     {
         //行動回数カウンタを1増加
@@ -75,6 +79,7 @@ public class EnemyController : Figure
             }
         }
     }
+    */
 
     //各種行動の具体的な定義
     private void WeakAttack(Figure target)

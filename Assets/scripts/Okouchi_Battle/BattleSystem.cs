@@ -119,7 +119,7 @@ public class BattleSystem : MonoBehaviour
         switch (selectedCommand)
         {
             case BattleCommand.ATTACK:
-                player.PerformAction(enemy);
+                // player.PerformAction(enemy);
                 goto EndAction;
             case BattleCommand.SPELL:
                 player.Spell(enemy);
@@ -209,7 +209,7 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //敵の行動
-        enemy.PerformAction(player);
+        // enemy.PerformAction(player);
 
         yield return new WaitForSeconds(1.5f);
 
