@@ -1,27 +1,26 @@
-// ƒtƒ@ƒCƒ‹–¼: GameManager.cs
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½: GameManager.cs
 using UnityEngine;
 
 /// <summary>
-/// ƒQ[ƒ€‘S‘Ì‚Ìƒf[ƒ^‚ğŠÇ—‚·‚éƒVƒ“ƒOƒ‹ƒgƒ“ƒNƒ‰ƒX
+/// ï¿½Qï¿½[ï¿½ï¿½ï¿½Sï¿½Ì‚Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
 /// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒ^ƒX")]
-    public int playerHP = 100;
-    public int playerHPnow = 100;
-    public int playerMP = 100;
-    public int playerMPnow = 100;
-    public int playerDefence = 5;
-    public int playerAttack = 20;
+    public string playerName = "";
+    public float playerHP = 100f;
+    public float playerHPnow = 100f;
+    public float playerMP = 100f;
+    public float playerMPnow = 100f;
+    public float playerDefence = 5f;
+    public float playerAttack = 20f;
 
-    [Header("í“¬ŠÖ˜Aƒf[ƒ^")]
-    public int enemyNumberToBattle; // í“¬ƒV[ƒ“‚É“n‚·“G‚Ì”Ô†
+    public int enemyNumberToBattle; // 
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“ƒpƒ^[ƒ“‚ÌÀ‘•
+        // ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
         if (Instance == null)
         {
             Instance = this;

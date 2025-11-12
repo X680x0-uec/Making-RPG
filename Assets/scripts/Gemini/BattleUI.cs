@@ -9,26 +9,23 @@ using System;
 /// </summary>
 public class BattleUI : MonoBehaviour
 {
-    [Header("UI�v�f")]
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private GameObject talkBoxPanel;
     [SerializeField] private GameObject playerControlsPanel;
 
-    [Header("�v���C���[UI")]
     [SerializeField] private TextMeshProUGUI playerHPText;
 
-    [Header("�GUI")]
     [SerializeField] private GameObject enemyInfoPanel;
     [SerializeField] private TextMeshProUGUI enemyNameText;
     [SerializeField] private TextMeshProUGUI enemyHPText;
 
-    private PlayerController player;
-    private EnemyController_sub enemy;
+    private Player player;
+    private EnemyController enemy;
 
     /// <summary>
     /// UI�̏����ݒ�
     /// </summary>
-    public void SetupUI(PlayerController p, EnemyController_sub e)
+    public void SetupUI(Player p, EnemyController e)
     {
         player = p;
         enemy = e;
@@ -47,12 +44,12 @@ public class BattleUI : MonoBehaviour
         talkBoxPanel.SetActive(false);
     }
 
-    private void UpdatePlayerHP(int current, int max)
+    private void UpdatePlayerHP(float current, float max)
     {
         playerHPText.text = $"HP: {current} / {max}";
     }
 
-    private void UpdateEnemyHP(int current, int max)
+    private void UpdateEnemyHP(float current, float max)
     {
         enemyHPText.text = $"HP: {current} / {max}";
     }

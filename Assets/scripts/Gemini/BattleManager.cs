@@ -1,25 +1,19 @@
-// �t�@�C����: BattleManager.cs
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// �퓬�S�̗̂���i��ԁj���Ǘ�����N���X
-/// </summary>
 public class BattleManager : MonoBehaviour
 {
     public enum BattleState { SETUP, PLAYERTURN, ENEMYTURN, WIN, LOSE }
     public BattleState currentState;
 
-    [Header("�L�����N�^�[�Q��")]
-    [SerializeField] private PlayerController player;
+    [SerializeField] private Player player;
     [SerializeField] private Transform enemySpawnPoint;
-    private EnemyController_sub enemy;
+    private EnemyController enemy;
 
-    [Header("�G�f�[�^")]
-    [SerializeField] private EnemyData[] enemyDatabase; // ScriptableObject�̔z��
+    [SerializeField] private List<EnemyData> enemyDatabase; // ScriptableObject�̔z��
 
-    [Header("UI�Q��")]
     [SerializeField] private BattleUI battleUI;
 
     void Start()
@@ -38,7 +32,7 @@ public class BattleManager : MonoBehaviour
         int enemyId = GameManager.Instance != null ? GameManager.Instance.enemyNumberToBattle : 0;
         EnemyData enemyToLoad = enemyDatabase[enemyId];
         GameObject enemyInstance = Instantiate(enemyToLoad.prefab, enemySpawnPoint);
-        enemy = enemyInstance.GetComponent<EnemyController_sub>();
+        enemy = enemyInstance.GetComponent<EnemyController>();
         enemy.Setup(enemyToLoad);
 
         // UI�̏����ݒ�
@@ -48,7 +42,7 @@ public class BattleManager : MonoBehaviour
         player.OnDied += OnPlayerDied;
         enemy.OnDied += OnEnemyDied;
 
-        yield return battleUI.ShowMessage($"{enemy.name} �����ꂽ�I");
+        yield return battleUI.ShowMessage($"{enemy.charaName} �����ꂽ�I");
 
         StartPlayerTurn();
     }
@@ -65,9 +59,6 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(WinRoutine());
     }
 
-    /// <summary>
-    /// �v���C���[�̃^�[�����J�n
-    /// </summary>
     private void StartPlayerTurn()
     {
         currentState = BattleState.PLAYERTURN;
@@ -103,11 +94,17 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(PlayerEscapeRoutine());
     }
 
+    public void OnItemButton()
+    {
+        if (currentState != BattleState.PLAYERTURN) return;
+        StartCoroutine(PlayerItemRoutine());
+    }
+
     private IEnumerator PlayerAttackRoutine()
     {
         battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage("�䂤���� �̂��������I");
-        enemy.TakeDamage(player.attackPower);
+        enemy.TakeDamage(player.Attack);
         yield return new WaitForSeconds(1.5f);
 
         if (!enemy.isDead) StartCoroutine(EnemyTurnRoutine());
@@ -141,11 +138,20 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayerItemRoutine()
+    {
+        battleUI.SetPlayerControls(false);
+        yield return battleUI.ShowMessage("アイテムを使った");
+        yield return new WaitForSeconds(1.5f);
+
+        StartCoroutine(EnemyTurnRoutine());
+    }
+
     private IEnumerator EnemyTurnRoutine()
     {
         currentState = BattleState.ENEMYTURN;
-        yield return battleUI.ShowMessage($"{enemy.name} �̂��������I");
-        player.TakeDamage(enemy.attackPower);
+        yield return battleUI.ShowMessage($"{enemy.charaName} �̂��������I");
+        player.TakeDamage(enemy.Attack);
         yield return new WaitForSeconds(1.5f);
 
         if (!player.isDead) StartPlayerTurn();
@@ -154,7 +160,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator WinRoutine()
     {
         player.SaveHPToGameManager(); // HP��GameManager�ɕۑ�
-        yield return battleUI.ShowMessage($"{enemy.name} ����������I");
+        yield return battleUI.ShowMessage($"{enemy.charaName} ����������I");
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Main"); // Main�V�[���̖��O��K�X�ύX���Ă�������
     }

@@ -13,7 +13,25 @@ public class Player : Figure
     private int defenseBoostTurns = 0;
 
     //防御中のダメ軽減
-    public bool IsDefending { get; private set; } = false;
+    public bool isDefending { get; set; } = false;
+
+    protected override void Awake()
+    {
+        // GameManager
+        if (GameManager.Instance != null)
+        {
+            charaName = GameManager.Instance.playerName;
+            maxHP = GameManager.Instance.playerHP;
+            currentHP = GameManager.Instance.playerHPnow;
+            Attack = GameManager.Instance.playerAttack;
+            Defense = GameManager.Instance.playerDefence;
+        }
+        else
+        {
+            // GameManager���Ȃ��ꍇ�i�e�X�g�p�j
+            base.Awake();
+        }
+    }
 
     //実行防御力(防御力・ぼうぎょコマンドを参照する)
     public override int EffectiveDefense
@@ -22,7 +40,7 @@ public class Player : Figure
         {
             int baseDefense = Mathf.RoundToInt(Defense * defenseMultiplier);
             // ぼうぎょコマンド中の防御力増加計算
-            return IsDefending ? baseDefense * 2 : baseDefense;
+            return isDefending ? baseDefense * 2 : baseDefense;
         }
     }
 
@@ -46,7 +64,7 @@ public class Player : Figure
     //全バフのターン経過と解除
     public override void DecrementBuffTurns()
     {
-        IsDefending = false; //ターン終了時、防御状態解除
+        isDefending = false; //ターン終了時、防御状態解除
 
         //攻撃力バフの処理
         if (attackBoostTurns > 0)
@@ -110,7 +128,7 @@ public class Player : Figure
     //防御時の処理
     public void Defend()
     {
-        IsDefending = true;
+        isDefending = true;
         Debug.Log($"{charaName}は身を守っている。");
         //ステータス関連はBattle-Systemで実装する
     }
@@ -123,6 +141,15 @@ public class Player : Figure
         // item.Use(this); //Itemクラスに格納されているUseメソッドを呼び出している
 
         inventory.Remove(item);
+    }
+
+    // GameManagerにHPの情報を渡す
+    public void SaveHPToGameManager()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.playerHPnow = this.currentHP;
+        }
     }
 }
 
