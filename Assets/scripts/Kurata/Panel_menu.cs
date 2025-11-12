@@ -113,7 +113,18 @@ public class Panel_menu : MonoBehaviour
         }
     }
 
-    StartCoroutine(ResetButtonStates());
+            StartCoroutine(ResetButtonStates());
+    
+    foreach (Transform child in buttonParentContainer)
+    {   
+        
+        if (child.gameObject.CompareTag("ItemButton"))
+            {
+                Destroy(child.gameObject);
+            }
+
+
+    }
 }
 }
 
