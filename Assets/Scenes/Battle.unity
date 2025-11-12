@@ -923,11 +923,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 79110779}
-  m_Father: {fileID: 639224017}
+  m_Father: {fileID: 852420692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 90}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &433530375
@@ -2080,7 +2080,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 519980698}
-  - {fileID: 433530374}
   - {fileID: 852420692}
   - {fileID: 1699186078}
   m_Father: {fileID: 2119875175}
@@ -2742,6 +2741,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1893729022}
+  - {fileID: 433530374}
   m_Father: {fileID: 639224017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3031,6 +3031,7 @@ MonoBehaviour:
   PMP_Text: {fileID: 626903838}
   PHPdecrease: 0
   PMPdecrease: 0
+  defence: 0
   battle: {fileID: 919147355}
 --- !u!1 &977995621
 GameObject:

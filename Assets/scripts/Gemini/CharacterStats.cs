@@ -7,9 +7,10 @@ using System;
 /// </summary>
 public class CharacterStats : MonoBehaviour
 {
-    // 
-    public event Action<int, int> OnHPChanged; // (���݂�HP, �ő�HP)
-    // �L�����N�^�[���|�ꂽ�Ƃ��ɒʒm����C�x���g
+    // HP変更時
+    public event Action<int, int> OnHPChanged; // (currentHP, maxHP)
+    
+    // MP変更時
     public event Action OnDied;
 
     [Header("�X�e�[�^�X")]
