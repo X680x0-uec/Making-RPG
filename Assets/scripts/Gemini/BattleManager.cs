@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
         player.OnDied += OnPlayerDied;
         enemy.OnDied += OnEnemyDied;
 
-        yield return battleUI.ShowMessage($"{enemy.charaName} �����ꂽ�I");
+        yield return battleUI.ShowMessage($"{enemy.charaName}が現れた！");
 
         StartPlayerTurn();
     }
@@ -60,7 +60,6 @@ public class BattleManager : MonoBehaviour
     {
         currentState = BattleState.PLAYERTURN;
         player.isDefending = false; // 防御を解除
-        battleUI.ShowMessage("���Ȃ��̃^�[��", 0.5f); // メッセージを表示
         // battleUI.SetPlayerControls(true);
     }
 

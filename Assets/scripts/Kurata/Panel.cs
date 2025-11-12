@@ -18,12 +18,7 @@ public class Panel : MonoBehaviour
 
     void Start()
     {
-        if (displayMessageText.text != null)
-            {
-                ShowMessage("敵が現れた");
-            }
-
-            StartCoroutine(Paneloff());
+        StartCoroutine(Paneloff());
     }
 
     public void SetupUI(Player p, EnemyController e)
@@ -43,22 +38,22 @@ public class Panel : MonoBehaviour
 
     private void UpdatePlayerHP(float current, float max)
     {
-        playerHPText.text = $"HP: {current} / {max}";
+        // playerHPText.text = $"HP: {current} / {max}";
     }
 
     private void UpdatePlayerMP(float current, float max)
     {
-        playerMPText.text = $"MP: {current} / {max}";
+        // playerMPText.text = $"MP: {current} / {max}";
     }
 
     public Coroutine ShowMessage(string message, float waitTime = 1.5f)
     {
+        targetPanel.SetActive(true);
         return StartCoroutine(ShowMessageRoutine(message, waitTime));
     }
 
     private IEnumerator ShowMessageRoutine(string message, float waitTime)
     {
-        targetPanel.SetActive(true);
         displayMessageText.text = "";
         foreach (char c in message)
         {
