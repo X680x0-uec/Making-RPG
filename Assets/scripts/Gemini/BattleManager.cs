@@ -12,33 +12,30 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Transform enemySpawnPoint;
     private EnemyController enemy;
 
-    [SerializeField] private List<EnemyData> enemyDatabase; // ScriptableObject�̔z��
+    [SerializeField] private List<EnemyData> enemyDatabase; // ScriptableObject
 
-    [SerializeField] private BattleUI battleUI;
+    [SerializeField] private Panel battleUI;
 
     void Start()
     {
         StartCoroutine(SetupBattle());
     }
 
-    /// <summary>
-    /// �퓬�����R���[�`��
-    /// </summary>
     private IEnumerator SetupBattle()
     {
         currentState = BattleState.SETUP;
 
-        // GameManager����GID���擾���A�Y������G�𐶐�
+        // GameManager
         int enemyId = GameManager.Instance != null ? GameManager.Instance.enemyNumberToBattle : 0;
         EnemyData enemyToLoad = enemyDatabase[enemyId];
         GameObject enemyInstance = Instantiate(enemyToLoad.prefab, enemySpawnPoint);
         enemy = enemyInstance.GetComponent<EnemyController>();
         enemy.Setup(enemyToLoad);
 
-        // UI�̏����ݒ�
+        // SetupUIの呼び出し
         battleUI.SetupUI(player, enemy);
 
-        // �C�x���g�w��
+        // player及びenemyがやられたときの処理
         player.OnDied += OnPlayerDied;
         enemy.OnDied += OnEnemyDied;
 
@@ -62,32 +59,23 @@ public class BattleManager : MonoBehaviour
     private void StartPlayerTurn()
     {
         currentState = BattleState.PLAYERTURN;
-        player.isDefending = false; // �O�̃^�[���̖h���Ԃ����Z�b�g
-        battleUI.ShowMessage("���Ȃ��̃^�[��", 0.5f); // �҂����Ɏ��̏�����
-        battleUI.SetPlayerControls(true);
+        player.isDefending = false; // 防御を解除
+        battleUI.ShowMessage("���Ȃ��̃^�[��", 0.5f); // メッセージを表示
+        // battleUI.SetPlayerControls(true);
     }
 
-    /// <summary>
-    /// �U���{�^���������ꂽ�Ƃ��̏���
-    /// </summary>
     public void OnAttackButton()
     {
         if (currentState != BattleState.PLAYERTURN) return;
         StartCoroutine(PlayerAttackRoutine());
     }
 
-    /// <summary>
-    /// �h��{�^���������ꂽ�Ƃ��̏���
-    /// </summary>
     public void OnDefendButton()
     {
         if (currentState != BattleState.PLAYERTURN) return;
         StartCoroutine(PlayerDefendRoutine());
     }
 
-    /// <summary>
-    /// ������{�^���������ꂽ�Ƃ��̏���
-    /// </summary>
     public void OnEscapeButton()
     {
         if (currentState != BattleState.PLAYERTURN) return;
@@ -102,7 +90,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator PlayerAttackRoutine()
     {
-        battleUI.SetPlayerControls(false);
+        // battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage("�䂤���� �̂��������I");
         enemy.TakeDamage(player.Attack);
         yield return new WaitForSeconds(1.5f);
@@ -112,7 +100,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator PlayerDefendRoutine()
     {
-        battleUI.SetPlayerControls(false);
+        // battleUI.SetPlayerControls(false);
         player.isDefending = true;
         yield return battleUI.ShowMessage("�䂤���� �͖h��̎p�����Ƃ����B");
         yield return new WaitForSeconds(1.5f);
@@ -122,13 +110,13 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator PlayerEscapeRoutine()
     {
-        battleUI.SetPlayerControls(false);
-        // 50%�̊m���Ő���
+        // battleUI.SetPlayerControls(false);
+        // 50%の確立で逃げ切ることができる
         if (Random.value > 0.5f)
         {
             yield return battleUI.ShowMessage("���܂��������ꂽ�I");
             yield return new WaitForSeconds(1.5f);
-            SceneManager.LoadScene("Main"); // Main�V�[���̖��O��K�X�ύX���Ă�������
+            SceneManager.LoadScene("Main"); // Mainを呼び出す。
         }
         else
         {
@@ -140,7 +128,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator PlayerItemRoutine()
     {
-        battleUI.SetPlayerControls(false);
+        // battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage("アイテムを使った");
         yield return new WaitForSeconds(1.5f);
 
@@ -151,6 +139,7 @@ public class BattleManager : MonoBehaviour
     {
         currentState = BattleState.ENEMYTURN;
         yield return battleUI.ShowMessage($"{enemy.charaName} �̂��������I");
+        Debug.Log("enemy");
         player.TakeDamage(enemy.Attack);
         yield return new WaitForSeconds(1.5f);
 
@@ -159,20 +148,20 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WinRoutine()
     {
-        player.SaveHPToGameManager(); // HP��GameManager�ɕۑ�
+        player.SaveHPToGameManager(); // HPをGameManagerに保存する
         yield return battleUI.ShowMessage($"{enemy.charaName} ����������I");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Main"); // Main�V�[���̖��O��K�X�ύX���Ă�������
+        SceneManager.LoadScene("Main"); // Mainシーンに切り替え
     }
 
     private IEnumerator LoseRoutine()
     {
         yield return battleUI.ShowMessage("�䂤���� �͓|��Ă��܂���...");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Gameover"); // Gameover�V�[���̖��O��K�X�ύX���Ă�������
+        SceneManager.LoadScene("Gameover"); // Gameoverシーンに切り替え
     }
 
-    // �I�u�W�F�N�g�j�����ɃC�x���g�w�ǂ�����
+    // 死んだとき
     private void OnDestroy()
     {
         if (player != null) player.OnDied -= OnPlayerDied;

@@ -9,16 +9,65 @@ public class Panel : MonoBehaviour
     private System.Random randomGenerator = new System.Random(); 
     public GameObject targetPanel;
     public TMPro.TextMeshProUGUI displayMessageText;
+    [SerializeField] private TextMeshProUGUI playerHPText;
+    [SerializeField] private TextMeshProUGUI playerMPText;
     [SerializeField] public BattleSystem BattleSystem;
     
+    private Player player;
+    private EnemyController enemy;
+
     void Start()
     {
         if (displayMessageText.text != null)
             {
-                displayMessageText.text = "敵が現れた";
+                ShowMessage("敵が現れた");
             }
 
             StartCoroutine(Paneloff());
+    }
+
+    public void SetupUI(Player p, EnemyController e)
+    {
+        player = p;
+        enemy = e;
+
+        // プレイヤーのHP変更時に対応する
+        player.OnHPChanged += UpdatePlayerHP;
+        player.OnMPChanged += UpdatePlayerMP;
+
+        // HP・MPの表示
+        // enemyNameText.text = enemy.name;
+        UpdatePlayerHP(player.currentHP, player.maxHP);
+        UpdatePlayerMP(player.currentMP, player.maxMP);
+    }
+
+    private void UpdatePlayerHP(float current, float max)
+    {
+        playerHPText.text = $"HP: {current} / {max}";
+    }
+
+    private void UpdatePlayerMP(float current, float max)
+    {
+        playerMPText.text = $"MP: {current} / {max}";
+    }
+
+    public Coroutine ShowMessage(string message, float waitTime = 1.5f)
+    {
+        return StartCoroutine(ShowMessageRoutine(message, waitTime));
+    }
+
+    private IEnumerator ShowMessageRoutine(string message, float waitTime)
+    {
+        targetPanel.SetActive(true);
+        displayMessageText.text = "";
+        foreach (char c in message)
+        {
+            displayMessageText.text += c;
+            yield return new WaitForSeconds(0.05f); // 少し待つ
+        }
+
+        yield return new WaitForSeconds(waitTime);
+        targetPanel.SetActive(false);
     }
     
     private IEnumerator Paneloff()
@@ -33,24 +82,7 @@ public class Panel : MonoBehaviour
 
     private IEnumerator EscapeProcess()
     {
-        if (displayMessageText.text != null)
-        {
-            displayMessageText.text = "学生は逃げようとした！";
-        }
-    
         yield return new WaitForSeconds(3.0f);
-
-        int randomNumber = randomGenerator.Next(0, 2);
-    
-        if(randomNumber == 1)
-        {
-            displayMessageText.text = "逃げ切れた！";
-        }
-        else
-        {
-            displayMessageText.text = "逃げ切れなかった、、。";
-        }
-
         StartCoroutine(Paneloff());
     }
 
@@ -67,12 +99,6 @@ public class Panel : MonoBehaviour
         if (targetPanel != null)
         {
             targetPanel.SetActive(true);
-
-            if (displayMessageText.text != null)
-            {
-                displayMessageText.text = "学生はたたかった！ABのダメージ！";
-            }
-
             StartCoroutine(Paneloff());
             Deselect();
         }
@@ -83,12 +109,6 @@ public class Panel : MonoBehaviour
         if (targetPanel != null)
         {
             targetPanel.SetActive(true);
-
-            if (displayMessageText.text != null)
-            {
-                displayMessageText.text = "学生はまほうを使った！BCのダメージ！";
-            }
-
             StartCoroutine(Paneloff());
             Deselect();
         }
@@ -99,12 +119,6 @@ public class Panel : MonoBehaviour
         if (targetPanel != null)
         {
             targetPanel.SetActive(true);
-
-            if (displayMessageText.text != null)
-            {
-                displayMessageText.text = "学生はぼうぎょした！ダメージ軽減率がCD%上昇！";
-            }
-
             StartCoroutine(Paneloff());
             Deselect();
         }
@@ -125,12 +139,6 @@ public class Panel : MonoBehaviour
         if (targetPanel != null)
         {
             targetPanel.SetActive(true);
-
-            if (displayMessageText.text != null)
-            {
-                displayMessageText.text = "アイテムを使用した";
-            }
-
             StartCoroutine(Paneloff());
             Deselect();
         }

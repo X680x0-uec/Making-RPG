@@ -22,9 +22,6 @@ public class BattleUI : MonoBehaviour
     private Player player;
     private EnemyController enemy;
 
-    /// <summary>
-    /// UI�̏����ݒ�
-    /// </summary>
     public void SetupUI(Player p, EnemyController e)
     {
         player = p;

@@ -7,6 +7,9 @@ public abstract class Figure : MonoBehaviour
     // HP変化時に呼び出される
     public event Action<float, float> OnHPChanged; // (currentHP, maxHP)
 
+    // MP変化時に呼び出される
+    public event Action<float, float> OnMPChanged; // (currentMP, maxMP)
+
     // 死んだとき
     public event Action OnDied;
 
