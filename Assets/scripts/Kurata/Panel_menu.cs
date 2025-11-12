@@ -126,7 +126,7 @@ private IEnumerator OpenMenuSequence()
 
 
 
-    // 💡 TogglePanelMenu() は完全に以下のコードに置き換えてください
+
 public void TogglePanelMenu()
 {
     targetPanelMenu.SetActive(true);
@@ -141,8 +141,14 @@ public void TogglePanelMenu()
     // 1. 【重要】古いボタンを全て削除する
     // メニューを開くたびにボタンが重複して増えないようにするため
     foreach (Transform child in buttonParentContainer)
-    {
-        Destroy(child.gameObject);
+    {   
+        
+        if (child.gameObject.CompareTag("ItemButton"))
+            {
+                Destroy(child.gameObject);
+            }
+
+
     }
     
     // 2. インベントリをループし、アイテムごとにボタンを生成
@@ -153,7 +159,7 @@ public void TogglePanelMenu()
         // 3. ボタンを生成し、親を設定
         // Instantiate(ひな型, 親オブジェクト)
         GameObject newButtonObj = Instantiate(itemButtonPrefab, buttonParentContainer);
-        
+            newButtonObj.tag = "ItemButton";
         // 4. ボタンのテキストを設定
         // ボタンの子オブジェクトから TextMeshProUGUI を探して設定
         TextMeshProUGUI buttonText = newButtonObj.GetComponentInChildren<TextMeshProUGUI>();
