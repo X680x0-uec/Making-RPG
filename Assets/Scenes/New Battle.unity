@@ -2032,6 +2032,7 @@ MonoBehaviour:
   player: {fileID: 1999785241}
   enemySpawnPoint: {fileID: 591589416}
   enemyDatabase:
+  - {fileID: 11400000, guid: 573f317446b27ff4298a8fbeb7eac038, type: 2}
   - {fileID: 11400000, guid: 5925b004698ca874f901d75d5e2768c4, type: 2}
   battleUI: {fileID: 434322210}
 --- !u!4 &1982077006
