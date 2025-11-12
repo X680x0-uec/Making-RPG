@@ -76,6 +76,16 @@ public class player_controller : MonoBehaviour
         {
             SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
         }
+        else if (collision.CompareTag("Shop") && !hasOpenedShop)
+        {
+            Debug.Log("Shopに入りました");
+            hasOpenedShop = true;
+
+            if (panelMenu != null)
+            {
+                panelMenu.ToggleMenu(); // ESCキーと同じ動作
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -126,29 +136,15 @@ public class player_controller : MonoBehaviour
         }
 
     }
-    
-    private void OnTriggerEnter2D(Collider2D collision)
-{
-    if (collision.CompareTag("Shop") && !hasOpenedShop)
-    {
-        Debug.Log("Shopに入りました");
-        hasOpenedShop = true;
 
-        if (panelMenu != null)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Shop"))
         {
-            panelMenu.ToggleMenu(); // ESCキーと同じ動作
+            hasOpenedShop = false;
+            Debug.Log("Shopから出ました");
         }
     }
-}
-
-private void OnTriggerExit2D(Collider2D collision)
-{
-    if (collision.CompareTag("Shop"))
-    {
-        hasOpenedShop = false;
-        Debug.Log("Shopから出ました");
-    }
-}
     IEnumerator WAITTIME()
     {
         yield return new WaitForSeconds(1.0f);
