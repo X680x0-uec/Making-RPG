@@ -11,6 +11,7 @@ TagManager:
   - ItemButton
   - Item
   - Library_door
+  - Shop
   layers:
   - Default
   - TransparentFX
