@@ -1,18 +1,18 @@
-// ƒtƒ@ƒCƒ‹–¼: CharacterStats.cs
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½: CharacterStats.cs
 using UnityEngine;
 using System;
 
 /// <summary>
-/// í“¬ƒLƒƒƒ‰ƒNƒ^[‚ÌŠî–{ƒXƒe[ƒ^ƒX‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// ï¿½í“¬ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ÌŠï¿½{ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
 /// </summary>
 public class CharacterStats : MonoBehaviour
 {
-    // Œ»İ‚ÌHP‚ª•ÏX‚³‚ê‚½‚Æ‚«‚É’Ê’m‚·‚éƒCƒxƒ“ƒg
-    public event Action<int, int> OnHPChanged; // (Œ»İ‚ÌHP, Å‘åHP)
-    // ƒLƒƒƒ‰ƒNƒ^[‚ª“|‚ê‚½‚Æ‚«‚É’Ê’m‚·‚éƒCƒxƒ“ƒg
+    // 
+    public event Action<int, int> OnHPChanged; // (ï¿½ï¿½ï¿½İ‚ï¿½HP, ï¿½Å‘ï¿½HP)
+    // ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½ï¿½|ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½É’Ê’mï¿½ï¿½ï¿½ï¿½Cï¿½xï¿½ï¿½ï¿½g
     public event Action OnDied;
 
-    [Header("ƒXƒe[ƒ^ƒX")]
+    [Header("ï¿½Xï¿½eï¿½[ï¿½^ï¿½X")]
     public int maxHP = 100;
     public int currentHP { get; protected set; }
     public int attackPower = 10;
@@ -26,20 +26,20 @@ public class CharacterStats : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ_ƒ[ƒW‚ğó‚¯‚éˆ—
+    /// ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚éˆï¿½ï¿½
     /// </summary>
     public virtual void TakeDamage(int damage)
     {
         if (isDead) return;
 
-        // –hŒä—Í‚ğl—¶‚µ‚½ƒ_ƒ[ƒWŒvZ
+        // ï¿½hï¿½ï¿½Í‚ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½vï¿½Z
         int actualDamage = Mathf.Max(damage - defensePower, 1);
         currentHP = Mathf.Max(currentHP - actualDamage, 0);
 
-        // HP•ÏXƒCƒxƒ“ƒg‚ğ’Ê’m
+        // HPï¿½ÏXï¿½Cï¿½xï¿½ï¿½ï¿½gï¿½ï¿½Ê’m
         OnHPChanged?.Invoke(currentHP, maxHP);
 
-        Debug.Log($"{gameObject.name} ‚Í {actualDamage} ‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½I c‚èHP: {currentHP}");
+        Debug.Log($"{gameObject.name} ï¿½ï¿½ {actualDamage} ï¿½Ìƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚ï¿½ï¿½I ï¿½cï¿½ï¿½HP: {currentHP}");
 
         if (currentHP <= 0)
         {
@@ -48,12 +48,12 @@ public class CharacterStats : MonoBehaviour
     }
 
     /// <summary>
-    /// €–Sˆ—
+    /// ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½
     /// </summary>
     protected virtual void Die()
     {
         isDead = true;
-        Debug.Log($"{gameObject.name} ‚Í“|‚ê‚½B");
+        Debug.Log($"{gameObject.name} ï¿½Í“|ï¿½ê‚½ï¿½B");
         OnDied?.Invoke();
     }
 }

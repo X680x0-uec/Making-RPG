@@ -4,6 +4,12 @@ using UnityEngine;
 
 public abstract class Figure : MonoBehaviour
 {
+    // HP変化時に呼び出される
+    public event Action<float, float> OnHPChanged; // (currentHP, maxHP)
+
+    // 死んだとき
+    public event Action OnDied;
+
     public string charaName;
     public float maxHP;
     public float currentHP;
@@ -12,6 +18,8 @@ public abstract class Figure : MonoBehaviour
     public float Speed;
     public float maxMP;
     public float currentMP;
+
+    public bool isDead { get; private set; } = false;
 
     //バフ管理用プロパティ
     //protected float speedADD = 0(多分使わない)
@@ -23,6 +31,11 @@ public abstract class Figure : MonoBehaviour
 
     //実行防御力のプロパティ
     public abstract int EffectiveDefense{ get; }
+
+    protected virtual void Awake()
+    {
+        currentHP = maxHP;
+    }
 
     //素早さバフの適用メソッド
     public void ApplySpeedBoost(float multiplier, int duration)

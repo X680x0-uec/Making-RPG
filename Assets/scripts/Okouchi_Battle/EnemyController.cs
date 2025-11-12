@@ -4,6 +4,26 @@ using UnityEngine;
 
 public class EnemyController : Figure
 {
+    [HideInInspector]
+    public EnemyData enemyData;
+    public EnemyData.Types type;
+    public float report_point;
+
+    /// <summary>
+    /// EnemyData�Ɋ�Â��ēG������������
+    /// </summary>
+    public void Setup(EnemyData data)
+    {   
+        type = data.type;
+        charaName = data.charaName;
+        maxHP = data.maxHP;
+        Attack = data.Attack;
+        Defense = data.Defense;
+        Speed = data.Speed;
+        maxMP = data.maxMP;
+        report_point = data.report_point;
+    }
+    
     private bool Charging = false; //溜め状態のフラグ
     private int turnCount = 0; //行動回数のカウント
 
@@ -86,3 +106,33 @@ public class EnemyController : Figure
         Debug.Log($"{charaName}は実験意義について鋭い質問をした！");
     }
 }
+
+/*
+public class EnemyController_sub : Figure
+{
+    [HideInInspector]
+    public EnemyData enemyData;
+
+    /// <summary>
+    /// EnemyData�Ɋ�Â��ēG������������
+    /// </summary>
+    public void Setup(EnemyData data)
+    {
+        enemyData = data;
+        gameObject.name = data.charaName;
+        maxHP = data.maxHP;
+        attackPower = data.Attack;
+        defensePower = data.Defense;
+
+        // base.Awake()�̏������蓮�ŌĂяo��
+        currentHP = maxHP;
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        // �����ɓG�����ꂽ���̃A�j���[�V������G�t�F�N�g�����Ȃǂ�ǉ��ł���
+        gameObject.SetActive(false);
+    }
+}
+*/
