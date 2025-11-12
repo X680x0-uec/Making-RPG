@@ -25974,7 +25974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &272683350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40010,6 +40010,7 @@ MonoBehaviour:
   - {fileID: 972659262}
   commandButtons:
   - {fileID: 972659263}
+  shopPanel: {fileID: 0}
 --- !u!1 &774474232
 GameObject:
   m_ObjectHideFlags: 0
@@ -40601,6 +40602,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_search
       objectReference: {fileID: 0}
+    - target: {fileID: 1278355604060964715, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1793114462191419252, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_text
       value: "\u3057\u3089\u3079\u308B"
@@ -40671,11 +40676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 12
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -48.5
+      value: -46
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -45326,8 +45331,8 @@ MonoBehaviour:
   m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -46724,6 +46729,7 @@ MonoBehaviour:
   - {fileID: 972659262}
   commandButtons:
   - {fileID: 972659263}
+  shopPanel: {fileID: 0}
 --- !u!114 &1812358738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46794,8 +46800,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.7126}
-  m_SizeDelta: {x: 254.2939, y: 212.5921}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 290, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1824941134
 MonoBehaviour:
@@ -51670,6 +51676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_openitemlist
       objectReference: {fileID: 0}
+    - target: {fileID: 1278355604060964715, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -51732,11 +51742,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 12
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -51748,6 +51758,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2717218899618861383, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001235271440101653, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207067268819526364, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}
+      propertyPath: m_isRightToLeft
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6107732146362304735, guid: 84d055d05bf04402fabd6e8053b9557c, type: 3}

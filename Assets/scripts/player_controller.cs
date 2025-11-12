@@ -74,10 +74,12 @@ public class player_controller : MonoBehaviour
         }
         else if (collision.tag == "Library_door")
         {
+            DontDestroyOnLoad(gameObject);
             SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
         }
         else if (collision.CompareTag("Shop") && !hasOpenedShop)
         {
+            DontDestroyOnLoad(gameObject);
             Debug.Log("Shopに入りました");
             hasOpenedShop = true;
 
