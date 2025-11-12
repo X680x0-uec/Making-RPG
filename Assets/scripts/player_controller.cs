@@ -21,6 +21,10 @@ public class player_controller : MonoBehaviour
 
     private UIManager uiManager;
 
+    private Panel_menu panelMenu;
+
+     private bool hasOpenedShop = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +33,8 @@ public class player_controller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         uiManager = FindObjectOfType<UIManager>();
+
+        panelMenu = FindObjectOfType<Panel_menu>();
     }
 
     // Update is called once per frame
@@ -60,7 +66,7 @@ public class player_controller : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D collision)
-    {   
+    {
         if (collision.tag == "encounter")
         {
             int randomencount = UnityEngine.Random.Range(0, 100);
@@ -100,16 +106,39 @@ public class player_controller : MonoBehaviour
             }
             collision.gameObject.SetActive(false);
         }
-        if(collision.tag == "enemy")
+        if (collision.tag == "enemy")
         {
             Destroy(collision.gameObject);
         }
-        else if (collision.tag == "Library_door")
+        if (collision.tag == "Library_door")
         {
             SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
         }
 
     }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("Shop") && !hasOpenedShop)
+    {
+        Debug.Log("Shopに入りました");
+        hasOpenedShop = true;
+
+        if (panelMenu != null)
+        {
+            panelMenu.ToggleMenu(); // ESCキーと同じ動作
+        }
+    }
+}
+
+private void OnTriggerExit2D(Collider2D collision)
+{
+    if (collision.CompareTag("Shop"))
+    {
+        hasOpenedShop = false;
+        Debug.Log("Shopから出ました");
+    }
+}
     IEnumerator WAITTIME()
     {
         yield return new WaitForSeconds(1.0f);
