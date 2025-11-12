@@ -148,7 +148,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+<<<<<<< HEAD:Assets/Sprites/Buildings/Agora.png.meta
       Agora_0: -723424192
+=======
+      Agora_0: 5039696371194657255
+>>>>>>> parent of bb8f228 (Revert "戦闘処理に関するもろもろのスクリプトの追加,及びキャラクターとアイテムのリスト化"):Assets/Sprites/Agora.png.meta
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
