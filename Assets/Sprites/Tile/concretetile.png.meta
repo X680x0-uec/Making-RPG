@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e2c57267163210b4ab64bd6a4de5ea37
+guid: e577319c6bbd54069bd999e641a3b3dc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4457835537561387818
-    second: Black_0
+      213: 150778699637332401
+    second: concretetile_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Black_0
+      name: concretetile_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a2385738dc96ddd30800000000000000
-      internalID: 4457835537561387818
+      spriteID: 1b9149fad6ca71200800000000000000
+      internalID: 150778699637332401
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Black_0: 4457835537561387818
+      concretetile_0: 150778699637332401
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
