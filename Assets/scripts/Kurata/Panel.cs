@@ -46,13 +46,13 @@ public class Panel : MonoBehaviour
         // playerMPText.text = $"MP: {current} / {max}";
     }
 
-    public Coroutine ShowMessage(string message, float waitTime = 1.5f)
+    public Coroutine ShowMessage(string message, float waitTime = 1.5f, bool deactivate = true)
     {
         targetPanel.SetActive(true);
-        return StartCoroutine(ShowMessageRoutine(message, waitTime));
+        return StartCoroutine(ShowMessageRoutine(message, waitTime, deactivate));
     }
 
-    private IEnumerator ShowMessageRoutine(string message, float waitTime)
+    private IEnumerator ShowMessageRoutine(string message, float waitTime, bool deactivate)
     {
         displayMessageText.text = "";
         foreach (char c in message)
@@ -62,7 +62,7 @@ public class Panel : MonoBehaviour
         }
 
         yield return new WaitForSeconds(waitTime);
-        targetPanel.SetActive(false);
+        if (deactivate) { targetPanel.SetActive(false); }
     }
     
     private IEnumerator Paneloff()
