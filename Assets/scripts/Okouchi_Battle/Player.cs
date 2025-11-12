@@ -11,6 +11,8 @@ public class Player : Figure
     private int attackBoostTurns = 0;
     private float defenseMultiplier = 1f;
     private int defenseBoostTurns = 0;
+    public float baseAttackMultipier = 1f;
+    public float baseDefenseMultipier = 1f;
 
     //防御中のダメ軽減
     public bool isDefending { get; set; } = false;
@@ -148,6 +150,7 @@ public class Player : Figure
         if (GameManager.Instance != null)
         {
             GameManager.Instance.playerHPnow = this.currentHP;
+            
         }
     }
 }
