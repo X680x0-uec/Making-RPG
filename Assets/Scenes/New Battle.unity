@@ -2079,7 +2079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2fda90e828c544ba0271271cfb7ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaName: 
+  charaName: "\u52C7\u8005"
   maxHP: 100
   currentHP: 100
   Attack: 0

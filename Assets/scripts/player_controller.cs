@@ -15,6 +15,7 @@ public class player_controller : MonoBehaviour
     [SerializeField] public float speed_const = 2.5f;
     public float speed;
     public bool stop = false;
+    private float encount_range = 511;
     private Rigidbody2D rb;
     private Vector2 move;
     private int idX = Animator.StringToHash("x"), idY = Animator.StringToHash("y");
@@ -65,13 +66,30 @@ public class player_controller : MonoBehaviour
         rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "enemy")
+        {
+            Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "Library_door")
+        {
+            SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "encounter")
         {
-            int randomencount = UnityEngine.Random.Range(0, 100);
+            int randomencount = UnityEngine.Random.Range(0, Mathf.FloorToInt(encount_range));
+            encount_range -= Time.fixedDeltaTime;
+            Debug.Log(collision.gameObject);
+            if (encount_range < 0) { encount_range = 0; }
+
             if (randomencount == 0)
             {
+                encount_range = 511;  // 初期化
                 UI_Encount.SetActive(true);
                 stop = true;
                 cameraAnimator.SetTrigger("Encounter");
@@ -105,14 +123,6 @@ public class player_controller : MonoBehaviour
                 uiManager.ShowItemGetPanel();
             }
             collision.gameObject.SetActive(false);
-        }
-        if (collision.tag == "enemy")
-        {
-            Destroy(collision.gameObject);
-        }
-        if (collision.tag == "Library_door")
-        {
-            SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
         }
 
     }
