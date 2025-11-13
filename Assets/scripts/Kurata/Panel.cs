@@ -64,7 +64,7 @@ public class Panel : MonoBehaviour
         if (deactivate) { targetPanel.SetActive(false); }
     }
     
-    private IEnumerator Paneloff()
+    public IEnumerator Paneloff()
     {
         yield return new WaitForSeconds(3.0f);
 
