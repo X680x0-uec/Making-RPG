@@ -63,16 +63,11 @@ public abstract class Figure : MonoBehaviour
     }
 
     //ダメージを受けるメソッド(PlayerとEnemyで防御力の計算が違うため実行防御力を使用した。)
-    public virtual void TakeDamage(float damage)
+    public virtual float TakeDamage(float damage)
     {
         float effectiveDamage = Mathf.Max(0, damage - Defense);
         currentHP -= effectiveDamage;
-        Debug.Log($"{charaName}は{effectiveDamage}のダメージを受けた！");
-
-        if (currentHP <= 0)
-        {
-            Die();
-        }
+        return effectiveDamage;
     }
 
 

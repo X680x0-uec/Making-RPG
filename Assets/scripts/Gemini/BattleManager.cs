@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
         player.OnDied += OnPlayerDied;
         enemy.OnDied += OnEnemyDied;
 
-        yield return battleUI.ShowMessage($"{enemy.charaName} �����ꂽ�I");
+        yield return battleUI.ShowMessage($"{enemy.charaName}が現れた！");
 
         StartPlayerTurn();
     }
@@ -60,7 +60,6 @@ public class BattleManager : MonoBehaviour
     {
         currentState = BattleState.PLAYERTURN;
         player.isDefending = false; // 防御を解除
-        battleUI.ShowMessage("���Ȃ��̃^�[��", 0.5f); // メッセージを表示
         // battleUI.SetPlayerControls(true);
     }
 
@@ -91,9 +90,8 @@ public class BattleManager : MonoBehaviour
     private IEnumerator PlayerAttackRoutine()
     {
         // battleUI.SetPlayerControls(false);
-        yield return battleUI.ShowMessage("�䂤���� �̂��������I");
-        enemy.TakeDamage(player.Attack);
-        yield return new WaitForSeconds(1.5f);
+        yield return battleUI.ShowMessage($"{ player.charaName }の攻撃！");
+        yield return battleUI.ShowMessage($"{ enemy.charaName }に{ enemy.TakeDamage(player.Attack) }のダメージを与えた！");
 
         if (!enemy.isDead) StartCoroutine(EnemyTurnRoutine());
     }
@@ -102,9 +100,7 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         player.isDefending = true;
-        yield return battleUI.ShowMessage("�䂤���� �͖h��̎p�����Ƃ����B");
-        yield return new WaitForSeconds(1.5f);
-
+        yield return battleUI.ShowMessage($"{ player.charaName }は敵の攻撃から身を守る態勢に入った");
         StartCoroutine(EnemyTurnRoutine());
     }
 
@@ -112,16 +108,15 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         // 50%の確立で逃げ切ることができる
+        yield return battleUI.ShowMessage($"{ player.charaName }は逃げようとした...");
         if (Random.value > 0.5f)
         {
-            yield return battleUI.ShowMessage("���܂��������ꂽ�I");
-            yield return new WaitForSeconds(1.5f);
+            yield return battleUI.ShowMessage("逃げ切れた！", deactivate: false);
             SceneManager.LoadScene("Main"); // Mainを呼び出す。
         }
         else
         {
-            yield return battleUI.ShowMessage("�������A��荞�܂�Ă��܂����I");
-            yield return new WaitForSeconds(1.5f);
+            yield return battleUI.ShowMessage("逃げ切れなかった！");
             StartCoroutine(EnemyTurnRoutine());
         }
     }
@@ -130,7 +125,6 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage("アイテムを使った");
-        yield return new WaitForSeconds(1.5f);
 
         StartCoroutine(EnemyTurnRoutine());
     }
@@ -138,10 +132,9 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EnemyTurnRoutine()
     {
         currentState = BattleState.ENEMYTURN;
-        yield return battleUI.ShowMessage($"{enemy.charaName} �̂��������I");
-        Debug.Log("enemy");
-        player.TakeDamage(enemy.Attack);
-        yield return new WaitForSeconds(1.5f);
+        yield return battleUI.ShowMessage($"{ enemy.charaName }の攻撃！");
+        yield return battleUI.ShowMessage($"{ player.charaName }は{ player.TakeDamage(enemy.Attack) }のダメージを受けた！");
+        yield return new WaitForSeconds(0.25f);
 
         if (!player.isDead) StartPlayerTurn();
     }
@@ -149,14 +142,13 @@ public class BattleManager : MonoBehaviour
     private IEnumerator WinRoutine()
     {
         player.SaveHPToGameManager(); // HPをGameManagerに保存する
-        yield return battleUI.ShowMessage($"{enemy.charaName} ����������I");
-        yield return new WaitForSeconds(2f);
+        yield return battleUI.ShowMessage($"{ enemy.charaName }を倒した！");
         SceneManager.LoadScene("Main"); // Mainシーンに切り替え
     }
 
     private IEnumerator LoseRoutine()
     {
-        yield return battleUI.ShowMessage("�䂤���� �͓|��Ă��܂���...");
+        yield return battleUI.ShowMessage($"{ player.charaName }はやられてしまった...");
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Gameover"); // Gameoverシーンに切り替え
     }

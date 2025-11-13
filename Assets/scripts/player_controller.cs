@@ -15,9 +15,16 @@ public class player_controller : MonoBehaviour
     [SerializeField] public float speed_const = 2.5f;
     public float speed;
     public bool stop = false;
+    private float encount_range = 511;
     private Rigidbody2D rb;
     private Vector2 move;
     private int idX = Animator.StringToHash("x"), idY = Animator.StringToHash("y");
+
+    private UIManager uiManager;
+
+    private Panel_menu panelMenu;
+
+     private bool hasOpenedShop = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,6 +32,10 @@ public class player_controller : MonoBehaviour
         UI_Encount.SetActive(false);
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        uiManager = FindObjectOfType<UIManager>();
+
+        panelMenu = FindObjectOfType<Panel_menu>();
     }
 
     // Update is called once per frame
@@ -55,13 +66,42 @@ public class player_controller : MonoBehaviour
         rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "enemy")
+        {
+            Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "Library_door")
+        {
+            DontDestroyOnLoad(gameObject);
+            SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
+        }
+        else if (collision.CompareTag("Shop") && !hasOpenedShop)
+        {
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("Shopに入りました");
+            hasOpenedShop = true;
+
+            if (panelMenu != null)
+            {
+                panelMenu.ToggleMenu(); // ESCキーと同じ動作
+            }
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
-    {   
+    {
         if (collision.tag == "encounter")
         {
-            int randomencount = UnityEngine.Random.Range(0, 100);
+            int randomencount = UnityEngine.Random.Range(0, Mathf.FloorToInt(encount_range));
+            encount_range -= Time.fixedDeltaTime;
+            Debug.Log(collision.gameObject);
+            if (encount_range < 0) { encount_range = 0; }
+
             if (randomencount == 0)
             {
+                encount_range = 511;  // 初期化
                 UI_Encount.SetActive(true);
                 stop = true;
                 cameraAnimator.SetTrigger("Encounter");
@@ -81,17 +121,35 @@ public class player_controller : MonoBehaviour
                 }
             }
         }
-        if(collision.tag == "danpen")
+        if (collision.tag == "danpen")
         {
             UI_Encount.SetActive(true);
             animator.SetTrigger("encount");
             StartCoroutine("WAITTIME");
             Static.enemynumber = 10;
         }
+        if (collision.tag == "Item")
+        {
+            if (uiManager != null)
+            {
+                uiManager.ShowItemGetPanel();
+            }
+            collision.gameObject.SetActive(false);
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Shop"))
+        {
+            hasOpenedShop = false;
+            Debug.Log("Shopから出ました");
+        }
     }
     IEnumerator WAITTIME()
     {
         yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene("New Battle");
     }
 }

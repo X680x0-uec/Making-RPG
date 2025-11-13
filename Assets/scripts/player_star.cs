@@ -17,13 +17,6 @@ public class player_star : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "enemy")
-        {
-            Destroy(collision.gameObject);
-        }
-        else if (collision.tag == "door")
-        {
-            SceneManager.LoadScene("Facility");//移動先のシーンの名前を必ずshopにしてください！
-        }
+        
     }
 }

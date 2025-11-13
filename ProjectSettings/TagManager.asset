@@ -8,8 +8,10 @@ TagManager:
   - library
   - enemy
   - encounter
-  - door
   - ItemButton
+  - Item
+  - Library_door
+  - Shop
   layers:
   - Default
   - TransparentFX

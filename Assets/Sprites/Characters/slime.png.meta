@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 14c4160ec94544eacb9d3a75830a2120
+guid: 18fc1e880b6c049c89702342d8392337
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7772053563467876060
-    second: fountain_0
+      213: 368543389579951487
+    second: slime_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fountain_0
+      name: slime_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 500
-        height: 500
+        y: 9
+        width: 151
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd6cfc1b981ebdb60800000000000000
-      internalID: 7772053563467876060
+      spriteID: f7d3b3c92445d1500800000000000000
+      internalID: 368543389579951487
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fountain_0: 7772053563467876060
+      slime_0: 368543389579951487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
