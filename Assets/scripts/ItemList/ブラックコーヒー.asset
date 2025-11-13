@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b336869db31e16479de44db4f7b6ba9, type: 3}
   m_Name: "\u30D6\u30E9\u30C3\u30AF\u30B3\u30FC\u30D2\u30FC"
   m_EditorClassIdentifier: 
-  item_name: 
+  item_name: "\u30D6\u30E9\u30C3\u30AF\u30B3\u30FC\u30D2\u30FC"
   type: 0
-  infomation: 
-  text: 
+  infomation: "\u30B7\u30F3\u30D7\u30EB\u3060\u304C\u5473\u308F\u3044\u304C\u3042\u308B\u30B3\u30FC\u30D2\u30FC\u3002\u4F5C\u696D\u3084\u8AC7\u7B11\u306E\u304A\u4F9B\u306B\u4E00\u676F\u98F2\u3082\u3046"
+  text: "\u30B3\u30FC\u30D2\u30FC\u3092\u98F2\u3093\u3067\u52C7\u8005\u306F\u5B89\u3089\u3044\u3060\uFF01"
   place: 
-  id: 0
-  effect: 0
+  id: 269
+  effect: 1
   target: 0
-  param: 0
+  param: 50
   duration: 0

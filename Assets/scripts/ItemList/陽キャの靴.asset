@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11311596da4620748b5568b947b00a11, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b336869db31e16479de44db4f7b6ba9, type: 3}
   m_Name: "\u967D\u30AD\u30E3\u306E\u9774"
   m_EditorClassIdentifier: 
   item_name: "\u967D\u30AD\u30E3\u306E\u9774"
   type: 0
-  infomation: 
-  text: 
+  infomation: "\u3061\u3083\u3093\u3068\u3057\u305F\u30B9\u30DD\u30FC\u30C4\u30D6\u30E9\u30F3\u30C9\u306E\u9774\u3002\u30B3\u30FC\u30CA\u30FC\u3067\u5DEE\u3092\u3064\u3051\u308D\uFF01"
+  text: "\u4FCA\u3007\u3092\u5C65\u3044\u3066\u8DB3\u304C\u901F\u304F\u306A\u3063\u305F\uFF01"
   place: 
-  id: 258
+  id: 268
   effect: 7
   target: 0
-  param: 0
-  duration: 0
+  param: 1.2
+  duration: 3

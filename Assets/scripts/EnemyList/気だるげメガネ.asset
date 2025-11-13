@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: "\u6C17\u3060\u308B\u3052\u30E1\u30AC\u30CD"
   m_EditorClassIdentifier: 
   type: 0
-  charaName: 
-  maxHP: 0
-  Attack: 0
-  Defense: 0
+  charaName: "\u6C17\u3060\u308B\u3052\u30E1\u30AC\u30CD"
+  maxHP: 90
+  Attack: 40
+  Defense: 8
   Speed: 0
-  maxMP: 0
+  maxMP: 30
   prefab: {fileID: 0}
-  report_point: 0
+  report_point: 110

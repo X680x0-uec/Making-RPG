@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: "\u8F2A\u90ED\u306E\u65AD\u7247"
   m_EditorClassIdentifier: 
   type: 0
-  charaName: 
-  maxHP: 0
-  Attack: 0
-  Defense: 0
+  charaName: "\u8F2A\u90ED\u306E\u65AD\u7247"
+  maxHP: 9999
+  Attack: 999
+  Defense: 999
   Speed: 0
   maxMP: 0
   prefab: {fileID: 0}

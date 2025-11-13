@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   charaName: "\u30D5\u30E9\u30B9\u30B3\u30D9\u30B9"
-  maxHP: 20
-  Attack: 0
-  Defense: 0
+  maxHP: 35
+  Attack: 5
+  Defense: 2
   Speed: 0
   maxMP: 0
   prefab: {fileID: 4307134331584905710, guid: e9ef43e8e2743ef489328c9125af3ed7, type: 3}

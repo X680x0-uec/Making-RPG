@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6bc5507ced54b4fb1d199e9bc888b6, type: 3}
   m_Name: "\u30D0\u30A4\u30C8\u306E\u4E0A\u53F8"
   m_EditorClassIdentifier: 
-  type: 0
-  charaName: 
-  maxHP: 0
-  Attack: 0
-  Defense: 0
+  type: 1
+  charaName: "\u30D0\u30A4\u30C8\u306E\u4E0A\u53F8"
+  maxHP: 400
+  Attack: 100
+  Defense: 60
   Speed: 0
   maxMP: 0
   prefab: {fileID: 0}
-  report_point: 0
+  report_point: 500
