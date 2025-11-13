@@ -17,9 +17,13 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private Panel battleUI;
     public GameObject ItemPanel;
+    private Vector2 rightTransform;
+    private RectTransform transform;
+    private bool onGoing = false;
 
     void Start()
     {
+        rightTransform = ItemPanel.GetComponent<RectTransform>().anchoredPosition;
         StartCoroutine(SetupBattle());
     }
 
@@ -60,6 +64,7 @@ public class BattleManager : MonoBehaviour
 
     private void StartPlayerTurn()
     {
+        onGoing = false;
         currentState = BattleState.PLAYERTURN;
         player.isDefending = false; // 防御を解除
         // battleUI.SetPlayerControls(true);
@@ -67,31 +72,36 @@ public class BattleManager : MonoBehaviour
 
     public void OnAttackButton()
     {
-        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
+        onGoing = true;
         StartCoroutine(PlayerAttackRoutine());
     }
 
     public void OnMagicButton()
     {
-        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
+        onGoing = true;
         StartCoroutine(PlayerMagicRoutine());
     }
 
     public void OnDefendButton()
     {
-        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
+        onGoing = true;
         StartCoroutine(PlayerDefendRoutine());
     }
 
     public void OnEscapeButton()
     {
-        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
+        onGoing = true;
         StartCoroutine(PlayerEscapeRoutine());
     }
 
     public void OnItemButton()
     {
-        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
+        onGoing = true;
         StartCoroutine(PlayerItemRoutine());
     }
 
@@ -148,6 +158,8 @@ public class BattleManager : MonoBehaviour
         // battleUI.SetPlayerControls(false);
         if (player.inventory.Count > 0)
         {
+            transform = ItemPanel.GetComponent<RectTransform>();
+            transform.anchoredPosition = rightTransform;
             ItemPanel.SetActive(true);
             isUsingItemPanel = true;
             battleUI.ShowMessage("", deactivate: false);
@@ -162,12 +174,11 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator PlayerUseItemRoutine(Item item)
     {
-        ItemPanel.SetActive(false);
-        battleUI.ShowMessage($"{ item.item_name }を使った！");
-        EnemyTurnRoutine();
-        yield return new WaitForEndOfFrame();
+        transform = ItemPanel.GetComponent<RectTransform>();
+        transform.anchoredPosition = new Vector2(50000f, 50000f);
+        yield return battleUI.ShowMessage($"{ item.item_name }を使った！");
+        yield return EnemyTurnRoutine();
         isUsingItemPanel = false;
-        Debug.Log("エネミー");
     }
 
     public IEnumerator EnemyTurnRoutine()
