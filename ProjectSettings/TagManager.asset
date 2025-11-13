@@ -12,6 +12,7 @@ TagManager:
   - Item
   - Library_door
   - Shop
+  - boss
   layers:
   - Default
   - TransparentFX

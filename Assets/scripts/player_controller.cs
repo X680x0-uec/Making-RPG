@@ -8,11 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class player_controller : MonoBehaviour
 {
+    public static player_controller instance;
     [SerializeField] private GameObject UI_Encount;
     private Animator animator;
     [SerializeField] Animator cameraAnimator;  // カメラワーク
 
-    [SerializeField] public float speed_const = 2.5f;
+    [SerializeField] public float speed_const = 5.0f;
     public float speed;
     public bool stop = false;
     private float encount_range = 511;
@@ -25,6 +26,8 @@ public class player_controller : MonoBehaviour
     private Panel_menu panelMenu;
 
      private bool hasOpenedShop = false;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -107,17 +110,10 @@ public class player_controller : MonoBehaviour
                 cameraAnimator.SetTrigger("Encounter");
                 StartCoroutine("WAITTIME");
                 int randomenemy = UnityEngine.Random.Range(0, 3);
-                if (randomenemy == 0)
+
+                if (GameManager.Instance != null)
                 {
-                    Static.enemynumber = 0;
-                }
-                if (randomenemy == 1)
-                {
-                    Static.enemynumber = 1;
-                }
-                if (randomenemy == 2)
-                {
-                    Static.enemynumber = 2;
+                    GameManager.Instance.enemyNumberToBattle = randomenemy;
                 }
             }
         }
@@ -126,7 +122,28 @@ public class player_controller : MonoBehaviour
             UI_Encount.SetActive(true);
             animator.SetTrigger("encount");
             StartCoroutine("WAITTIME");
-            Static.enemynumber = 10;
+            if (GameManager.Instance != null)
+            {
+                // ※EnemyDatabaseで "輪郭の断片" に割り当てたIDを指定してください (仮に3とします)
+                GameManager.Instance.enemyNumberToBattle = 4; //（または 10 のまま ※要確認）
+            }
+        }
+        if (collision.tag == "boss") // 1. で作成したタグ名
+        {
+            // エンカウント演出を開始
+            UI_Encount.SetActive(true);
+
+            // アニメーターが設定されていればトリガーを引く
+            if (animator != null)
+            {
+                animator.SetTrigger("encount");
+            }
+            encount_range = 1000000;  // 初期化
+            stop = true; // プレイヤーを止める
+            StartCoroutine("WAITTIME"); // 戦闘シーンへ
+
+            
+                GameManager.Instance.enemyNumberToBattle = 5; // ★ 敵IDを 5 に設定
         }
         if (collision.tag == "Item")
         {

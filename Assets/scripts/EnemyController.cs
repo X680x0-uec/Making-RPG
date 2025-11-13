@@ -41,7 +41,9 @@ public class EnemyController : Figure
     // 敵のバフターンの処理（素早さバフのみ）
     public override void DecrementBuffTurns()
     {
-        DecrementBuffTurns();
+        // ★ 修正点：自分自身ではなく、親クラス(Figure)のメソッドを呼ぶ
+        base.DecrementSpeedBuffTurns();
+        // DecrementBuffTurns(); // ← これが無限再帰の原因
     }
 
     //敵の行動AI
