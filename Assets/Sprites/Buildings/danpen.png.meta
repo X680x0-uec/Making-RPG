@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      danpen_0: -928796701297348251
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
