@@ -11,10 +11,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Transform enemySpawnPoint;
     private EnemyController enemy;
+    private bool isUsingItemPanel = false;
 
     [SerializeField] private List<EnemyData> enemyDatabase; // ScriptableObject
 
     [SerializeField] private Panel battleUI;
+    public GameObject ItemPanel;
 
     void Start()
     {
@@ -65,31 +67,31 @@ public class BattleManager : MonoBehaviour
 
     public void OnAttackButton()
     {
-        if (currentState != BattleState.PLAYERTURN) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
         StartCoroutine(PlayerAttackRoutine());
     }
 
     public void OnMagicButton()
     {
-        if (currentState != BattleState.PLAYERTURN) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
         StartCoroutine(PlayerMagicRoutine());
     }
 
     public void OnDefendButton()
     {
-        if (currentState != BattleState.PLAYERTURN) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
         StartCoroutine(PlayerDefendRoutine());
     }
 
     public void OnEscapeButton()
     {
-        if (currentState != BattleState.PLAYERTURN) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
         StartCoroutine(PlayerEscapeRoutine());
     }
 
     public void OnItemButton()
     {
-        if (currentState != BattleState.PLAYERTURN) return;
+        if (currentState != BattleState.PLAYERTURN || isUsingItemPanel) return;
         StartCoroutine(PlayerItemRoutine());
     }
 
@@ -118,7 +120,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator PlayerMagicRoutine()
     {
         // battleUI.SetPlayerControls(false);
-        yield return battleUI.ShowMessage("そんなものが使えたら人はレポートに苦しまないのさ(仮置き)");
+        yield return battleUI.ShowMessage("そんなものが使えたら人はレポートに苦しまないのさ");
         StartPlayerTurn();
     }
 
@@ -142,12 +144,33 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator PlayerItemRoutine()
     {
+        yield return new WaitForEndOfFrame();
         // battleUI.SetPlayerControls(false);
-        yield return battleUI.ShowMessage("アイテムを使った");
-        StartCoroutine(EnemyTurnRoutine());
+        if (player.inventory.Count > 0)
+        {
+            ItemPanel.SetActive(true);
+            isUsingItemPanel = true;
+            battleUI.ShowMessage("", deactivate: false);
+        }
+        else
+        {
+            yield return battleUI.ShowMessage("所持しているアイテムがありません");
+        }
+        
+        // StartCoroutine(EnemyTurnRoutine());
     }
 
-    private IEnumerator EnemyTurnRoutine()
+    public IEnumerator PlayerUseItemRoutine(Item item)
+    {
+        ItemPanel.SetActive(false);
+        battleUI.ShowMessage($"{ item.item_name }を使った！");
+        EnemyTurnRoutine();
+        yield return new WaitForEndOfFrame();
+        isUsingItemPanel = false;
+        Debug.Log("エネミー");
+    }
+
+    public IEnumerator EnemyTurnRoutine()
     {
         currentState = BattleState.ENEMYTURN;
         yield return battleUI.ShowMessage($"{ enemy.charaName }の攻撃！");
