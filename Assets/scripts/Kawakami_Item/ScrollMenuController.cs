@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.Collections;
+
 
 public class ScrollMenuController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class ScrollMenuController : MonoBehaviour
     public List<TMPro.TextMeshProUGUI> itemTexts;
     public BattleManager manager;
     public Player player;
+    private bool IsActioning = false;
 
     [Header("状態")]
     private int currentIndex = 0;                   // 現在選択中のアイテムのインデックス
@@ -39,18 +42,25 @@ public class ScrollMenuController : MonoBehaviour
         {
             direction = 1; // 下キーでインデックスを増やす
         }
-        else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        else if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && !IsActioning)
         {
             // Enterキーで現在選択中のボタンのOnClickを実行
             // itemButtons[currentIndex].GetComponent<Button>()?.onClick.Invoke();
-            StartCoroutine(manager.PlayerUseItemRoutine(player.inventory[currentIndex]));
-
+            StartCoroutine(Action());
+            Debug.Log("通っちゃいました");
         }
 
         if (direction != 0)
         {
             MoveSelection(direction);
         }
+    }
+
+    IEnumerator Action(){
+        IsActioning = true;
+        yield return StartCoroutine(manager.PlayerUseItemRoutine(player.inventory[currentIndex]));
+        Debug.Log("finished");
+        IsActioning = false;
     }
 
     private void Show()
