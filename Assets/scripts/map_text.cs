@@ -12,24 +12,28 @@ public class map_text : MonoBehaviour
     public string[] item = new string[5];
     public float waits = 0.1f;
     public int placenumber = 0;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    // Update is called once per frame
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Static.talkbox = false;
+        // Static.talkbox = false; // 削除
         UI_talkbox.SetActive(false);
         target.text = "";
     }
+
+    // Update is called once per frame
     void Update()
     {
-        UI_talkbox.SetActive(Static.talkbox);
+        // UI_talkbox.SetActive(Static.talkbox); // 削除 (Updateごと不要)
     }
+
     public void StartPlace()
     {
-        Static.talkbox = true;
+        // Static.talkbox = true; // 変更
+        UI_talkbox.SetActive(true); // 変更
         StartCoroutine(DisplayLine(facility[placenumber], waits));
     }
+
     // 文字列を順に表示していく
     public IEnumerator DisplayLine(string text, float seconds)
     {
@@ -44,6 +48,7 @@ public class map_text : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         target.text = "";
-        Static.talkbox = false;
+        // Static.talkbox = false; // 変更
+        UI_talkbox.SetActive(false); // 変更
     }
 }
