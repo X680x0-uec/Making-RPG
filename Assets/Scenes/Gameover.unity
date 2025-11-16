@@ -218,18 +218,18 @@ PrefabInstance:
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 140006038}
+      objectReference: {fileID: 1553896229}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButton_Continue
+      value: buttongomain
       objectReference: {fileID: 0}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Scenechange_Gameover, Assembly-CSharp
+      value: Scenechange, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -797,18 +797,18 @@ PrefabInstance:
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 140006038}
+      objectReference: {fileID: 1553896229}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButton_Start
+      value: buttongotitle
       objectReference: {fileID: 0}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Scenechange_Gameover, Assembly-CSharp
+      value: Scenechange, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4499901334495808843, guid: 72f0943c12098c94e81d53fff4586204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -923,6 +923,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1553896228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553896230}
+  - component: {fileID: 1553896229}
+  m_Layer: 0
+  m_Name: scriptbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1553896229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553896228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfcd8af3403f224c885c5ca3726c035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1553896230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553896228}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4831448, y: -0.5971048, z: -77.790955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -930,3 +974,4 @@ SceneRoots:
   - {fileID: 734012224}
   - {fileID: 332973691}
   - {fileID: 1419464691}
+  - {fileID: 1553896230}

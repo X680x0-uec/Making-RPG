@@ -97,9 +97,10 @@ public class Player : Figure
                 Debug.Log($"{charaName}の防御力が元に戻った。");
             }
         }
-
         //素早さバフの処理
-        DecrementBuffTurns();
+        // ★ 修正点：自分自身ではなく、親クラス(Figure)のメソッドを呼ぶ
+        base.DecrementSpeedBuffTurns();
+        // DecrementBuffTurns(); // ← これが無限再帰の原因
     }
 
 
