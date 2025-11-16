@@ -124,7 +124,6 @@ public class player_controller : MonoBehaviour
             StartCoroutine("WAITTIME");
             if (GameManager.Instance != null)
             {
-                // ※EnemyDatabaseで "輪郭の断片" に割り当てたIDを指定してください (仮に3とします)
                 GameManager.Instance.enemyNumberToBattle = 4; //（または 10 のまま ※要確認）
             }
         }
