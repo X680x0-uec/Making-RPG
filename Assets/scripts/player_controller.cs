@@ -16,7 +16,7 @@ public class player_controller : MonoBehaviour
     [SerializeField] public float speed_const = 5.0f;
     public float speed;
     public bool stop = false;
-    private float encount_range = 511;
+    private float encount_range = 100;
     private Rigidbody2D rb;
     private Vector2 move;
     private int idX = Animator.StringToHash("x"), idY = Animator.StringToHash("y");
@@ -75,22 +75,6 @@ public class player_controller : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
-        else if (collision.tag == "Library_door")
-        {
-            DontDestroyOnLoad(gameObject);
-            SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
-        }
-        else if (collision.CompareTag("Shop") && !hasOpenedShop)
-        {
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("Shopに入りました");
-            hasOpenedShop = true;
-
-            if (panelMenu != null)
-            {
-                panelMenu.ToggleMenu(); // ESCキーと同じ動作
-            }
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -104,7 +88,7 @@ public class player_controller : MonoBehaviour
 
             if (randomencount == 0)
             {
-                encount_range = 511;  // 初期化
+                encount_range = 100;  // 初期化
                 UI_Encount.SetActive(true);
                 stop = true;
                 cameraAnimator.SetTrigger("Encounter");
@@ -153,15 +137,6 @@ public class player_controller : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
 
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Shop"))
-        {
-            hasOpenedShop = false;
-            Debug.Log("Shopから出ました");
-        }
     }
     IEnumerator WAITTIME()
     {
