@@ -142,6 +142,12 @@ public class Player : Figure
         
         // item.Use(this); //Itemクラスに格納されているUseメソッドを呼び出している
 
+        Figure[] targets = new Figure[] { this };
+        item.Use(targets);
+
+        RaiseHPChanged();
+        RaiseMPChanged();
+
         inventory.Remove(item);
     }
 

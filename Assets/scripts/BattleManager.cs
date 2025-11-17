@@ -18,12 +18,13 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Panel battleUI;
     public GameObject ItemPanel;
     private Vector2 rightTransform;
-    private RectTransform transform;
+    private RectTransform itemPanelRectTransform;
     private bool onGoing = false;
 
     void Start()
     {
         rightTransform = ItemPanel.GetComponent<RectTransform>().anchoredPosition;
+        itemPanelRectTransform = ItemPanel.GetComponent<RectTransform>();
         StartCoroutine(SetupBattle());
     }
 
@@ -104,6 +105,15 @@ public class BattleManager : MonoBehaviour
         onGoing = true;
         StartCoroutine(PlayerItemRoutine());
     }
+    
+    public void OnItemUsed(Item item)
+    {
+        if(currentState != BattleState.PLAYERTURN) return;
+
+        player.UseItem(item);
+
+        StartCoroutine(PlayerUseItemRoutine(item));
+    }
 
     private IEnumerator PlayerAttackRoutine()
     {
@@ -158,8 +168,8 @@ public class BattleManager : MonoBehaviour
         // battleUI.SetPlayerControls(false);
         if (player.inventory.Count > 0)
         {
-            transform = ItemPanel.GetComponent<RectTransform>();
-            transform.anchoredPosition = rightTransform;
+            //transform = ItemPanel.GetComponent<RectTransform>();
+            //transform.anchoredPosition = rightTransform;
             ItemPanel.SetActive(true);
             isUsingItemPanel = true;
             battleUI.ShowMessage("", deactivate: false);
@@ -167,6 +177,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             yield return battleUI.ShowMessage("所持しているアイテムがありません");
+            onGoing = false;
         }
         
         // StartCoroutine(EnemyTurnRoutine());
@@ -174,11 +185,15 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator PlayerUseItemRoutine(Item item)
     {
-        transform = ItemPanel.GetComponent<RectTransform>();
-        transform.anchoredPosition = new Vector2(50000f, 50000f);
+        ItemPanel.SetActive(false);
+
+        //transform = ItemPanel.GetComponent<RectTransform>();
+        //transform.anchoredPosition = new Vector2(50000f, 50000f);
         yield return battleUI.ShowMessage($"{ item.item_name }を使った！");
         yield return EnemyTurnRoutine();
+        
         isUsingItemPanel = false;
+        onGoing = false;
     }
 
     public IEnumerator EnemyTurnRoutine()

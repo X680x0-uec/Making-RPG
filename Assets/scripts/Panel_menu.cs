@@ -10,6 +10,7 @@ public class Panel_menu : MonoBehaviour
     public GameObject targetPanelMenu;
 
     [SerializeField] public Player player;
+    public BattleManager battleManager;
 
     public GameObject itemButtonPrefab; //追加する用のボタンのオブジェクト(アイテムのこと)
 
@@ -191,6 +192,27 @@ public class Panel_menu : MonoBehaviour
         if (player.inventory.Count > index && index >= 0)
         {
             var itemToUse = player.inventory[index];//itemtouseを定義
+
+            if(itemToUse.type == Item.Type.KeyItem)
+            {
+                Debug.Log(itemToUse.item_name + "は戦闘中には使えない");
+                return;
+            }
+
+            if(battleManager != null && itemToUse.type == itemButtonPrefab.Type.UsableItem)
+            {
+                battleManager.OnItemUsed(itemToUse);
+
+                if (targetPanelMenu.activeSelf)
+                {
+                    targetPanelMenu.SetActive(false);
+                }
+                
+                if (menuPanel.activeSelf)
+                {
+                    menuPanel.SetActive(false);
+                }
+            }
         }
     }
 

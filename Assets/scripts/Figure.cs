@@ -29,6 +29,16 @@ public abstract class Figure : MonoBehaviour
     protected float speedMultiplier = 1f;
     protected int speedBoostTurns = 0;
 
+    //HP,MPの更新イベント
+    protected void RaiseHPChanged()
+    {
+        OnHPChanged?.Invoke(currentHP,maxHP);
+    }
+    protected void RaiseMPChanged()
+    {
+        OnMPChanged?.Invoke(currentMP,maxMP);
+    }
+
     //実行素早さの取得
     public int EffectiveSpeed => Mathf.RoundToInt(Speed * speedMultiplier);
 
