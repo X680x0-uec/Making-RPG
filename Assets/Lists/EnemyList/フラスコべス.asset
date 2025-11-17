@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   charaName: "\u30D5\u30E9\u30B9\u30B3\u30D9\u30B9"
+<<<<<<< HEAD:Assets/scripts/EnemyList/フラスコべス.asset
+  maxHP: 35
+  Attack: 5
+  Defense: 2
+=======
   maxHP: 40
   Attack: 0
   Defense: 0
+>>>>>>> 1bc87cbc398d51b8fb3ee0d34e6374cb57619583:Assets/Lists/EnemyList/フラスコべス.asset
   Speed: 0
   maxMP: 0
   prefab: {fileID: 4307134331584905710, guid: e9ef43e8e2743ef489328c9125af3ed7, type: 3}

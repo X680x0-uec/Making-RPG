@@ -14,10 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   charaName: "\u8F2A\u90ED\u306E\u65AD\u7247"
+<<<<<<< HEAD:Assets/scripts/EnemyList/輪郭の断片.asset
+  maxHP: 9999
+  Attack: 999
+  Defense: 999
+  Speed: 0
+  maxMP: 0
+  prefab: {fileID: 0}
+=======
   maxHP: 1000
   Attack: 100
   Defense: 0
   Speed: 0
   maxMP: 0
   prefab: {fileID: 2148051590340094839, guid: 351345e6bccb9f84dafa475125688cd1, type: 3}
+>>>>>>> 1bc87cbc398d51b8fb3ee0d34e6374cb57619583:Assets/Lists/EnemyList/輪郭の断片.asset
   report_point: 0

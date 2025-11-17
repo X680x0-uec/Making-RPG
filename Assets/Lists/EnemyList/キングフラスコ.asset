@@ -20,4 +20,4 @@ MonoBehaviour:
   Speed: 0
   maxMP: 70
   prefab: {fileID: 2148051590340094839, guid: d56fffa12fac50b478c0931e378e66f1, type: 3}
-  report_point: 0
+  report_point: 500

@@ -19,28 +19,36 @@ public class Player : Figure
 
     protected override void Awake()
     {
-        // GameManager
+        // GameManagerからステータスを読み込む
         if (GameManager.Instance != null)
         {
             charaName = GameManager.Instance.playerName;
             maxHP = GameManager.Instance.playerHP;
-            currentHP = GameManager.Instance.playerHPnow;
+            currentHP = GameManager.Instance.playerHPnow; //バトル後もHPを引き継ぐようにした
             maxMP = GameManager.Instance.playerMP;
-            currentMP = GameManager.Instance.playerMPnow;
+            currentMP = GameManager.Instance.playerMPnow; //MPも同様
             Attack = GameManager.Instance.playerAttack;
             Defense = GameManager.Instance.playerDefence;
+
+            //GameManagerにSpeedがなかったからデフォルトで値を設定する
+            Speed = Speed == 0 ? 10f : Speed;
         }
         else
         {
-            // GameManagerの呼び出し
+            // GameManagerがない場合
             base.Awake();
+            Speed = 10f;
+            charaName = "Player";
         }
     }
 
     //実行攻撃力
     public override int EffectiveAttack
     {
-        get { return Mathf.RoundToInt(Attack * attackMultiplier); }
+        get 
+        {
+            return Mathf.RoundToInt(Attack * attackMultiplier); 
+        }
     }
 
     //実行防御力(防御力・ぼうぎょコマンドを参照する)
@@ -48,9 +56,23 @@ public class Player : Figure
     {
         get
         {
-            int baseDefense = Mathf.RoundToInt(Defense * defenseMultiplier);
+            int finalDefence = (int)(Defense * defenseMultiplier);
             // ぼうぎょコマンド中の防御力増加計算
-            return isDefending ? baseDefense * 2 : baseDefense;
+            if (isDefending)
+            {
+                finalDefence *= 2; //防御中は2倍に
+            }
+            return Mathf.RoundToInt(finalDefence);
+        }
+    }
+
+    //HPをGameManagerに保存
+    public void SaveHPToGameManager()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.playerHPnow = this.currentHP;
+            GameManager.Instance.playerMPnow = this.currentMP;
         }
     }
 
@@ -71,8 +93,8 @@ public class Player : Figure
     }
 
 
-    //全バフのターン経過と解除
-    public override void DecrementBuffTurns()
+    //全バフのターン経過と解除(BattleManagerから呼び出す)
+    public override void DecrementSpeedBuffTurns()
     {
         isDefending = false; //ターン終了時、防御状態解除
 
@@ -97,10 +119,9 @@ public class Player : Figure
                 Debug.Log($"{charaName}の防御力が元に戻った。");
             }
         }
+
         //素早さバフの処理
-        // ★ 修正点：自分自身ではなく、親クラス(Figure)のメソッドを呼ぶ
         base.DecrementSpeedBuffTurns();
-        // DecrementBuffTurns(); // ← これが無限再帰の原因
     }
 
 
@@ -108,22 +129,26 @@ public class Player : Figure
     protected override void Die()
     {
         Debug.Log($"{charaName}は力尽きてしまった...");
-        //ここにゲームオーバー時の処理を入れる
+        //イベントはTakeDamageにて行う
     }
 
     //呪文の実行処理（例）
-    public void Spell(Figure target)
+    public bool Spell(Figure target, out float damage)
     {
-        if (currentMP >= 5) //コスト設定
+        damage = 0;
+        float cost = 5f;
+
+        if (ConsumeMP(cost))
         {
-            currentMP -= 5;
-            float damage = Attack * attackMultiplier * 1.5f;
+            damage = Attack * attackMultiplier * 1.5f;
             target.TakeDamage(damage);
             Debug.Log($"{charaName}は呪文を唱えた”");
+            return true;
         }
         else
         {
             Debug.Log($"MPが足りない！");
+            return false;
         }
     }
 
@@ -132,27 +157,44 @@ public class Player : Figure
     {
         isDefending = true;
         Debug.Log($"{charaName}は身を守っている。");
-        //ステータス関連はBattle-Systemで実装する
     }
 
-    //アイテム使用時の処理
-    public void UseItem(Item item)
+    //ターン開始時に防御状態をリセット
+    public void ResetFlags()
     {
-        Debug.Log($"{charaName}は{item.item_name}を使った！");
+        isDefending = false;
+    }
+
+    //アイテム使用時の処理(Item.csのApplyEffectを呼び出し)
+    public void UseItem(Item item, Figure target)
+    {
+        //ターゲットを配列で渡す
+        Figure[] targets;
+
+        switch(item.target)
+        {
+            case Item.Targets.Self:
+                targets = new Figure[] { this };
+                break;
+            case Item.Targets.OneOpponent:
+                targets = new Figure[] { target }; //一応敵を想定
+                break;
+            case Item.Targets.AllOpponents:
+                targets = new Figure[] { target }; //今のところ複数体呼び出すような処理がなさそうなのでこのままで...
+                break;
+            default:
+                targets = new Figure[] { this }; //不明な時は自分を指定
+                break;
+        }
+        //Debug.Log($"{charaName}は{item.item_name}を使った！");
         
         // item.Use(this); //Itemクラスに格納されているUseメソッドを呼び出している
-
-        inventory.Remove(item);
-    }
-
-    // GameManagerにHPの情報を渡す
-    public void SaveHPToGameManager()
-    {
-        if (GameManager.Instance != null)
+        item.ApplyEffect(targets);
+        if (inventory.Contains(item))
         {
-            GameManager.Instance.playerHPnow = this.currentHP;
-            
+            inventory.Remove(item);
         }
     }
+
 }
 
