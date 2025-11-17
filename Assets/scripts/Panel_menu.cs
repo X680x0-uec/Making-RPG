@@ -7,21 +7,138 @@ using TMPro;
 public class Panel_menu : MonoBehaviour
 {
     public GameObject menuPanel;
-    public GameObject targetPanelMenu;
+    //public GameObject targetPanelMenu; //panel.csのtargetpanelと重複してるかも
 
     [SerializeField] public Player player;
 
-    public GameObject itemButtonPrefab; //追加する用のボタンのオブジェクト(アイテムのこと)
+    [SerializeField] public GameObject itemButtonPrefab;
+    [SerializeField] public Transform buttonParentContainer;
 
-    public Transform buttonParentContainer;//ボタンを縦に並べるオブジェクト
+    private BattleManager battleManager;
 
-    public Animator[] commandButtonAnimators;//Button_openitemlistのアニメーション
+    //public GameObject itemButtonPrefab; //追加する用のボタンのオブジェクト(アイテムのこと)
 
-    public Button[] commandButtons;//Button_opemitemlist自体のボタン
+    //public Transform buttonParentContainer;//ボタンを縦に並べるオブジェクト
 
-    public GameObject shopPanel;
+    //public Animator[] commandButtonAnimators;//Button_openitemlistのアニメーション
+
+    //public Button[] commandButtons;//Button_opemitemlist自体のボタン
+
+    //public GameObject shopPanel;
+
+    void Start()
+    {
+        battleManager = FindFirstObjectByType<BattleManager>();
+
+        if (menuPanel != null && menuPanel.activeSelf)
+        {
+            menuPanel.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if (menuPanel != null && menuPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseItemPanel();
+        }
+    }
+
+    private void GenerateButtons()
+    {
+        foreach (Transform child in buttonParentContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (player.inventory == null)  
+        {
+            return;
+        }
+
+        for (int i = 0; i < player.inventory.Count; i++)
+        {
+            var itemData = player.inventory[i];
+            if (itemData == null) continue;
+
+            GameObject newButtonObj = Instantiate(itemButtonPrefab, buttonParentContainer);
+            newButtonObj.tag = "ItemButton";
+
+            TextMeshProUGUI buttonText = newButtonObj.GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                buttonText.text = itemData.item_name;
+            }
+
+            Button buttonComp = newButtonObj.GetComponent<Button>();
+            if (buttonComp != null)
+            {
+                int itemIndex = i;
+                buttonComp.onClick.AddListener(() => ToggleItem(itemIndex));
+            }
+        }
+    }
+
+    public void OpenItemPanel()
+    {
+        if(player == null)
+        {
+            Debug.LogError("PlayerがPanel_menuに設定されていません。");
+            battleManager.ReturnToPlayerTurn();
+            return;
+        }
+        GenerateButtons();
+        menuPanel.SetActive(true);
+
+        Button firstButton = buttonParentContainer.GetChild(0).GetComponent<Button>();
+        if (firstButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(firstButton.gameObject);
+        }
+    }
+
+    public void CloseItemPanel()
+    {
+        menuPanel.SetActive(false);
+        if (battleManager != null)
+        {
+            battleManager.ReturnToPlayerTurn();
+        }
+    }
     
+    public void ToggleItem(int index)
+    {
+        if (player.inventory.Count > index && index >= 0)
+        {
+            var itemToUse = player.inventory[index]; // 使用するアイテムを特定
 
+            // KeyItem (重要アイテム) は戦闘では使えない
+            if (itemToUse.type == Item.Type.KeyItem)
+            {
+                Debug.Log(itemToUse.item_name + " は戦闘中には使えない。");
+                return; // 処理を終了
+            }
+
+            // UsableItem (消費アイテム) の場合
+            // (Start() で取得済みの 'battleManager' 変数を使う)
+            if (battleManager != null && itemToUse.type == Item.Type.UsableItem)
+            {
+                // [修正]
+                // 正しいコルーチン名 'UseItemRoutine' を 'StartCoroutine' で呼び出す
+                battleManager.StartCoroutine(battleManager.UseItemRoutine(itemToUse)); 
+                
+                // アイテムパネルを閉じる
+                if (menuPanel.activeSelf)
+                {
+                    menuPanel.SetActive(false);
+                }
+            }
+        }
+    }
+}
+
+    //こっから先のメソッドは競合が発生するのでコメントアウトした
+    /*
     private IEnumerator Paneloff()
     {
         yield return new WaitForSeconds(3.0f);
@@ -191,6 +308,17 @@ public class Panel_menu : MonoBehaviour
         if (player.inventory.Count > index && index >= 0)
         {
             var itemToUse = player.inventory[index];//itemtouseを定義
+            BattleManager bm = FindObjectOfType<BattleManager>();
+
+            if (bm != null)
+            {
+                bm.UseItem(itemToUse);
+
+                if (menuPanel.activeSelf)
+                {
+                    menuPanel.SetActive(false);
+                }
+            }
         }
     }
 
@@ -203,6 +331,5 @@ public void ToggleShop()
         shopPanel.SetActive(!shopPanel.activeSelf);
     }
 }
-
-}
+*/
 

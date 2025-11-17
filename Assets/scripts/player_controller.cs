@@ -36,9 +36,9 @@ public class player_controller : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        uiManager = FindObjectOfType<UIManager>();
+        uiManager = FindFirstObjectByType<UIManager>();
 
-        panelMenu = FindObjectOfType<Panel_menu>();
+        panelMenu = FindFirstObjectByType<Panel_menu>();
     }
 
     // Update is called once per frame
@@ -88,7 +88,7 @@ public class player_controller : MonoBehaviour
 
             if (panelMenu != null)
             {
-                panelMenu.ToggleMenu(); // ESCキーと同じ動作
+                panelMenu.CloseItemPanel(); // ESCキーと同じ動作
             }
         }
     }
