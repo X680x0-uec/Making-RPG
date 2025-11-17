@@ -36,9 +36,9 @@ public class player_controller : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        uiManager = FindObjectOfType<UIManager>();
+        uiManager = FindFirstObjectByType<UIManager>();
 
-        panelMenu = FindObjectOfType<Panel_menu>();
+        panelMenu = FindFirstObjectByType<Panel_menu>();
     }
 
     // Update is called once per frame
@@ -74,6 +74,22 @@ public class player_controller : MonoBehaviour
         if(collision.tag == "enemy")
         {
             Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "Library_door")
+        {
+            DontDestroyOnLoad(gameObject);
+            SceneManager.LoadScene("Agora");//移動先のシーンの名前を必ずshopにしてください！
+        }
+        else if (collision.CompareTag("Shop") && !hasOpenedShop)
+        {
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("Shopに入りました");
+            hasOpenedShop = true;
+
+            if (panelMenu != null)
+            {
+                panelMenu.CloseItemPanel(); // ESCキーと同じ動作
+            }
         }
     }
 
