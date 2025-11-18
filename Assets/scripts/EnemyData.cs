@@ -20,8 +20,10 @@ public class EnemyData : ScriptableObject
     public float Defense;  // 防御力
     public float Speed;  // 素早さ
     public float maxMP;  // MPの最大値
+    public string special_attack_text; // スペシャルアタック時のテキスト
+    public string rest_text; // 様子を見てくるときのテキスト
     public GameObject prefab;  // 敵の見た目
-    public float report_point;  // この敵が落とすレポートポイント(仮)
+    public float Y_offset;  // 敵のy座標のオフセットを設定
     
     public EnemyData(EnemyData data)
     {
@@ -33,6 +35,6 @@ public class EnemyData : ScriptableObject
         this.Speed = data.Speed;
         this.maxMP = data.maxMP;
         this.prefab = data.prefab;
-        this.report_point = data.report_point;
+        this.Y_offset = data.Y_offset;
     }
 }
