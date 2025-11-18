@@ -69,6 +69,7 @@ public abstract class Figure : MonoBehaviour
     public virtual float TakeDamage(float damage)
     {
         float effectiveDamage = Mathf.Max(0, damage - EffectiveDefense);
+        effectiveDamage = UnityEngine.Random.Range((int)Math.Floor(effectiveDamage * 0.90f), (int)Math.Ceiling(effectiveDamage * 1.10f));
         currentHP -= effectiveDamage;
         if ( currentHP <= 0 ) { currentHP = 0; isDead = true; }
         if (OnHPChanged != null) {

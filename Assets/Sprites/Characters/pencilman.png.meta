@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pencilman_0: -731656981777438390
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
