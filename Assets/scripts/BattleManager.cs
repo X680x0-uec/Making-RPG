@@ -17,6 +17,9 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private Panel battleUI;
     public GameObject ItemPanel;
+    public GameObject BGM_Battle;
+    public GameObject BGM_BossBattle;
+
     private Vector2 rightTransform;
     private RectTransform transform;
     private bool onGoing = false;
@@ -37,6 +40,16 @@ public class BattleManager : MonoBehaviour
         GameObject enemyInstance = Instantiate(enemyToLoad.prefab, enemySpawnPoint);
         enemy = enemyInstance.GetComponent<EnemyController>();
         enemy.Setup(enemyToLoad);
+
+        // Boss BGM 呼び出し
+        if (enemy.type == EnemyData.Types.Boss)
+        {
+            BGM_BossBattle.SetActive(true);
+        }
+        else if (enemy.type != EnemyData.Types.Danpen)
+        {
+            BGM_Battle.SetActive(true);
+        }
 
         // SetupUIの呼び出し
         battleUI.SetupUI(player, enemy);
