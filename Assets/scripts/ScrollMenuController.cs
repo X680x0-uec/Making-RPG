@@ -44,24 +44,12 @@ public class ScrollMenuController : MonoBehaviour
         }
         else if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && !IsActioning)
         {
-            // Enterキーで現在選択中のボタンのOnClickを実行
-            // itemButtons[currentIndex].GetComponent<Button>()?.onClick.Invoke();
-            StartCoroutine(Action());
-            Debug.Log("通っちゃいました");
         }
 
         if (direction != 0)
         {
             MoveSelection(direction);
         }
-    }
-
-    IEnumerator Action()
-    {
-        IsActioning = true;
-        yield return StartCoroutine(manager.UseItemRoutine(player.inventory[currentIndex]));
-        Debug.Log("finished");
-        IsActioning = false;
     }
 
     private void Show()
