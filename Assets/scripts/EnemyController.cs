@@ -7,7 +7,7 @@ public class EnemyController : Figure
     [HideInInspector]
     public EnemyData enemyData;
     public EnemyData.Types type;
-    public float report_point;
+    public float Y_offset;
 
     /// <summary>
     /// EnemyData�Ɋ�Â��ēG������������
@@ -23,7 +23,7 @@ public class EnemyController : Figure
         Speed = data.Speed;
         maxMP = data.maxMP;
         currentMP = maxMP;
-        report_point = data.report_point;
+        Y_offset = data.Y_offset;
     }
     
     private bool Charging = false; //溜め状態のフラグ
