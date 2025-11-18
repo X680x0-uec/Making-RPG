@@ -37,15 +37,12 @@ public class Item : ScriptableObject
         None // ターゲットは存在しない
     }
 
-    [Header("Item info")]
     public String item_name; // 名前
     public Type type; // 種類
     public String infomation; // 情報
-    public String item_text; // アイテム使用時のテキスト
+    public String text; // アイテム使用時のテキスト
     public String place; // アイテムを拾う場所
     public int id;  // アイテムのID
-
-    [Header("Item Effect")]
     public Effects effect;  // アイテム使用時の効果
     public Targets target;
     public float param;  // アイテム使用時効果の具体的なパラメータを設定する 
@@ -56,35 +53,49 @@ public class Item : ScriptableObject
     public int duration;  // アイテムの継続時間(ターン数)
     // フィールドで使用する場合はターン数に一定の定数をかけて秒に直すという仕様にする(仮)
 
-    public float mp_cost;
-
-    public void ApplyEffect(Figure[] targets)
+    public Item(Item item)
     {
-        foreach(Figure t in targets)
-        {
-            if (t == null ||( t.isDead && effect != Effects.Revive)) 
-            {
-                continue;
-            }
+        this.item_name = item.item_name;
+        this.type = item.type;
+        this.infomation = item.infomation;
+        this.text = item.text;
+        this.id = item.id;
+        this.effect = item.effect;
+        this.target = item.target;
+        this.param = item.param;
+        this.duration = item.duration;
+    }
 
-            switch (effect)
+    //アイテム使用時のロジック
+    public void Use(Figure[] targets)
+    {
+        // Player userではなく、List<Character> targetsとかの方がいいかもしれない(アイテムは自分だけでなく、敵(しかも複数)に対しても利用できるため)
+        // この辺の仕様をどうするかは要話し合い
+
+        // これはUseの前の方がいいかもしれない
+        // Debug.Log($"{targets[0].charaName}は{this.item_name}を使った！");
+        Debug.Log(this.text); // 使用時テキスト
+
+        // 配列の中身を順に参照
+        for (int i = 0; i < targets.Length; i++)
+        {
+            switch (this.effect)
             {
                 case Effects.Damage:
                     // ここではthis.paramは与えるダメージ量
-                    float actualDamage = t.TakeDamage(this.param);
-                    Debug.Log($"{t.charaName}に{actualDamage}ダメージ与えた！");
+                    targets[i].TakeDamage(this.param);
                     break;
 
                 case Effects.HPRecover:
                     // ここではthis.paramはHP回復量
-                    float healHP = t.HealHP(this.param);
-                    Debug.Log($"{t.charaName}のHPが{healHP}回復した！");
+                    targets[i].currentHP = Mathf.Min(targets[i].maxHP, targets[i].currentHP + this.param);
+                    Debug.Log($"{targets[i].charaName}のHPが{this.param}回復した！");
                     break;
 
                 case Effects.MPRecover:
                     // ここではthis.paramはMP回復量
-                    float healMP = t.HealMP(this.param);
-                    Debug.Log($"{t.charaName}のMPが{healMP}回復した！");
+                    targets[i].currentMP = Mathf.Min(targets[i].maxMP, targets[i].currentMP + this.param);
+                    Debug.Log($"{targets[i].charaName}のMPが{this.param}回復した！");
                     break;
 
                 case Effects.AttackUp:
@@ -111,7 +122,7 @@ public class Item : ScriptableObject
 
                 case Effects.SpeedUp:
                     // ここではthis.paramは素早さ上昇(下降)倍率
-                    t.ApplySpeedBoost(this.param, this.duration);
+                    targets[i].ApplySpeedBoost(this.param, this.duration);
                     break;
 
                 case Effects.StatusUp:
@@ -131,10 +142,10 @@ public class Item : ScriptableObject
                     // targets[i].canRevive = true;
                     break;
 
-                default:
-                    Debug.Log($"効果{effect}は未実装です。ごめんね");
-                    break;
             }
         }
+        
+
+        //このタイミングでUseItemメソッドによりアイテムが消費される？
     }
 }

@@ -541,7 +541,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 416926309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c885d04635ae55947b7c9e3ec8ad842e, type: 3}
+  m_Script: {fileID: 11500000, guid: db17a0c74a8613d478241d34b68d4087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: "\u52C7\u8005"
@@ -549,8 +549,8 @@ MonoBehaviour:
   playerHPnow: 100
   playerMP: 100
   playerMPnow: 100
-  playerDefence: 100
-  playerAttack: 80
+  playerDefence: 5
+  playerAttack: 20
   enemyNumberToBattle: 0
 --- !u!4 &416926311
 Transform:
@@ -595,14 +595,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 434322209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc0afc7e45614089b6acae48e9c5d1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e0206482eca7e1468bcd89e82c7a3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPanel: {fileID: 434322209}
   displayMessageText: {fileID: 1809991641}
   playerHPText: {fileID: 57477785}
   playerMPText: {fileID: 459113941}
-  actionPanel: {fileID: 0}
 --- !u!114 &434322211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1351,7 +1350,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 591589414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232818d123c5af545a997a64a2912839, type: 3}
+  m_Script: {fileID: 11500000, guid: 37000e7b69228714a9e09265f18a43ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   charaName: 
@@ -2181,9 +2180,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 0}
+  targetPanelMenu: {fileID: 0}
   player: {fileID: 1999785241}
-  itemButtonPrefab: {fileID: 1047527823}
+  itemButtonPrefab: {fileID: 0}
   buttonParentContainer: {fileID: 0}
+  commandButtonAnimators: []
+  commandButtons: []
+  shopPanel: {fileID: 0}
 --- !u!114 &1353552041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,13 +2291,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1428716327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce8fa5fcdc7943e3b943e6c1714cbbe, type: 3}
+  m_Script: {fileID: 11500000, guid: 09a680f6d6cee1841a60395f201af3ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuPanel: {fileID: 1428716327}
+  itemArrows:
+  - {fileID: 1635714987}
+  - {fileID: 1096157183}
+  - {fileID: 1319648056}
+  itemTexts:
+  - {fileID: 889929531}
+  - {fileID: 1311282457}
+  - {fileID: 1234174618}
+  manager: {fileID: 1982077005}
   player: {fileID: 1999785241}
-  itemButtonPrefab: {fileID: 1906711628}
-  buttonParentContainer: {fileID: 1353552036}
 --- !u!1 &1467177405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,11 +3278,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb9fba76cef24dd5b3bc0c4c4c1cf48, type: 3}
---- !u!1 &1906711628 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6029516480697780621, guid: 6cb9fba76cef24dd5b3bc0c4c4c1cf48, type: 3}
-  m_PrefabInstance: {fileID: 1510208992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1938207372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3465,7 +3469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1982077004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a516f44caca32a4b83062926009985e, type: 3}
+  m_Script: {fileID: 11500000, guid: e1917df0c76eb494387d305e835a3615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
@@ -3473,13 +3477,11 @@ MonoBehaviour:
   enemySpawnPoint: {fileID: 591589416}
   enemyDatabase:
   - {fileID: 11400000, guid: 4274c74ecf489554698dfdb00da41345, type: 2}
-  - {fileID: 11400000, guid: 4274c74ecf489554698dfdb00da41345, type: 2}
-  - {fileID: 11400000, guid: 7c89716328e4154488d36f9755bca60f, type: 2}
+  - {fileID: 11400000, guid: f6f66420bb3260a42870a75f8501a2cb, type: 2}
   - {fileID: 11400000, guid: 573f317446b27ff4298a8fbeb7eac038, type: 2}
-  - {fileID: 11400000, guid: 02422d6c02eb7af47ab56766a6688e2c, type: 2}
   - {fileID: 11400000, guid: 81b44984bded7ce4f9b6a5b48bd42f98, type: 2}
   battleUI: {fileID: 434322210}
-  itemPanel: {fileID: 1428716330}
+  ItemPanel: {fileID: 434322209}
 --- !u!4 &1982077006
 Transform:
   m_ObjectHideFlags: 0
@@ -3521,10 +3523,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999785240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2fda90e828c544ba0271271cfb7ea4, type: 3}
+  m_Script: {fileID: 11500000, guid: a52284f984829614d9b9cc2fdcc9d819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaName: 
+  charaName: "\u52C7\u8005"
   maxHP: 0
   currentHP: 0
   Attack: 0
@@ -3532,12 +3534,7 @@ MonoBehaviour:
   Speed: 0
   maxMP: 0
   currentMP: 0
-  inventory:
-  - {fileID: 11400000, guid: 407c0bad239324b228c308d8fc135e0c, type: 2}
-  - {fileID: 11400000, guid: 7e39f2de46bdf8341bcbb9cf3dd8618b, type: 2}
-  - {fileID: 11400000, guid: b810b5de9480092448d9dc6a178f3012, type: 2}
-  - {fileID: 11400000, guid: 9e4ce8b3d8b5f44ceaa438f48b3baced, type: 2}
-  - {fileID: 11400000, guid: e76533f190d8c49d9885628b91e39996, type: 2}
+  inventory: []
   baseAttackMultipier: 1
   baseDefenseMultipier: 1
 --- !u!4 &1999785242

@@ -88,7 +88,7 @@ public class player_controller : MonoBehaviour
 
             if (panelMenu != null)
             {
-                panelMenu.CloseItemPanel(); // ESCキーと同じ動作
+                // panelMenu.CloseItemPanel(); // ESCキーと同じ動作
             }
         }
     }
