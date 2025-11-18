@@ -19,5 +19,7 @@ MonoBehaviour:
   Defense: 10
   Speed: 0
   maxMP: 0
+  special_attack_text: "\u300C\u541B\u306E\u8003\u5BDF\u306F\u4E0D\u5341\u5206\u306A\u306E\u3067\u518D\u63D0\u51FA\u3067\u3059\u3002\u300D"
+  rest_text: "\u300C\u672C\u65E5\u306F\u51FA\u5F35\u306E\u305F\u3081\u304A\u4F11\u307F\u3067\u3059\u3002\u300D"
   prefab: {fileID: 2148051590340094839, guid: dc6bb2b1ac7fc044783a1770d5432f79, type: 3}
-  report_point: 0
+  Y_offset: 0

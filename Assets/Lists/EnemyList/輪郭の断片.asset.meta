@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/scripts/EnemyList/輪郭の断片.asset.meta
-guid: 02246eef048f5b3449c446a851f0ba2e
-=======
-guid: a054305cc5c74d0458ee8f53d4de4922
->>>>>>> 1bc87cbc398d51b8fb3ee0d34e6374cb57619583:Assets/Lists/EnemyList/輪郭の断片.asset.meta
+guid: 7cb0f6d904ab6ad40b831eb020da6d7e
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

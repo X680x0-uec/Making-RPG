@@ -139,7 +139,8 @@ public class BattleManager : MonoBehaviour
         // battleUI.SetPlayerControls(false);
         // 50%の確立で逃げ切ることができる
         yield return battleUI.ShowMessage($"{ player.charaName }は逃げようとした...");
-        if (Random.value > 0.5f)
+        int randomnumber = UnityEngine.Random.Range(0, Mathf.FloorToInt(enemy.maxHP));
+        if (randomnumber >= (enemy.maxHP - player.maxHP / 1.5) && enemy.type != EnemyData.Types.Boss)
         {
             yield return battleUI.ShowMessage("逃げ切れた！", deactivate: false);
             player.SaveHPToGameManager(); // HPをGameManagerに保存する
@@ -155,30 +156,18 @@ public class BattleManager : MonoBehaviour
     private IEnumerator PlayerItemRoutine()
     {
         yield return new WaitForEndOfFrame();
-        // battleUI.SetPlayerControls(false);
-        if (player.inventory.Count > 0)
+        yield return battleUI.ShowMessage($"{ player.charaName }は天に向かって祈りをささげた...！");
+        if (Random.value > 0.999f)
         {
-            transform = ItemPanel.GetComponent<RectTransform>();
-            transform.anchoredPosition = rightTransform;
-            ItemPanel.SetActive(true);
-            isUsingItemPanel = true;
-            battleUI.ShowMessage("", deactivate: false);
+            yield return battleUI.ShowMessage($"{ player.charaName }の願いは天に届いた！");
+            player.heal();
+            yield return battleUI.ShowMessage($"なんと{ player.charaName }のHPが全回復した！");
         }
         else
         {
-            yield return battleUI.ShowMessage("所持しているアイテムがありません");
+            yield return battleUI.ShowMessage("しかし何も起こらなかった...");
         }
-        
-        // StartCoroutine(EnemyTurnRoutine());
-    }
-
-    public IEnumerator PlayerUseItemRoutine(Item item)
-    {
-        transform = ItemPanel.GetComponent<RectTransform>();
-        transform.anchoredPosition = new Vector2(50000f, 50000f);
-        yield return battleUI.ShowMessage($"{ item.item_name }を使った！");
-        yield return EnemyTurnRoutine();
-        isUsingItemPanel = false;
+        StartCoroutine(EnemyTurnRoutine());
     }
 
     public IEnumerator EnemyTurnRoutine()
