@@ -16,7 +16,7 @@ MonoBehaviour:
   charaName: "\u30D5\u30E9\u30B9\u30B3"
   maxHP: 20
   Attack: 1
-  Defense: 1
+  Defense: 0
   Speed: 0
   maxMP: 0
   prefab: {fileID: 2148051590340094839, guid: 4e4b5d0bbd96ee943b732838219bbd43, type: 3}

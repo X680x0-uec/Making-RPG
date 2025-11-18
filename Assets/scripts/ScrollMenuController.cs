@@ -56,10 +56,9 @@ public class ScrollMenuController : MonoBehaviour
         }
     }
 
-    IEnumerator Action()
-    {
+    IEnumerator Action(){
         IsActioning = true;
-        yield return StartCoroutine(manager.UseItemRoutine(player.inventory[currentIndex]));
+        yield return StartCoroutine(manager.PlayerUseItemRoutine(player.inventory[currentIndex]));
         Debug.Log("finished");
         IsActioning = false;
     }
