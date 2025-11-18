@@ -135,6 +135,13 @@ public class Player : Figure
         //ステータス関連はBattle-Systemで実装する
     }
 
+    // 無駄行動(HP全回復 確率 0.01%)
+    public void heal()
+    {
+        currentHP = maxHP;
+        TakeDamage(0f);
+    }
+
     //アイテム使用時の処理
     public void UseItem(Item item)
     {

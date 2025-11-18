@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   charaName: "\u30AD\u30F3\u30B0\u30D5\u30E9\u30B9\u30B3"
-  maxHP: 500
-  Attack: 120
-  Defense: 60
+  maxHP: 88
+  Attack: 25
+  Defense: 5
   Speed: 0
-  maxMP: 70
+  maxMP: 0
+  special_attack_text: 
+  rest_text: 
   prefab: {fileID: 2148051590340094839, guid: d56fffa12fac50b478c0931e378e66f1, type: 3}
-  report_point: 500
+  Y_offset: 0
