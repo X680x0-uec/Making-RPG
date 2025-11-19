@@ -610,6 +610,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873794315}
   m_CullTransparentMesh: 1
+--- !u!1 &954764753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954764755}
+  - component: {fileID: 954764754}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &954764754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954764753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db17a0c74a8613d478241d34b68d4087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: "\u52C7\u8005"
+  playerHP: 30
+  playerHPnow: 30
+  playerMP: 0
+  playerMPnow: 0
+  playerDefence: 10
+  playerAttack: 15
+  enemyNumberToBattle: 0
+--- !u!4 &954764755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954764753}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4654174, y: -1.0985616, z: 6.796737}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &993338853
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cfcd8af3403f224c885c5ca3726c035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossLoseRespawnPos: {x: 17.5, y: 27, z: 0}
+  danpenLoseRespawnPos: {x: -10.5, y: 36, z: 0}
 --- !u!1 &1904450060
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,7 +925,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 993338857}
         m_TargetAssemblyTypeName: Scenechange, Assembly-CSharp
-        m_MethodName: buttongomain
+        m_MethodName: buttongostart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1086,3 +1140,4 @@ SceneRoots:
   - {fileID: 1904450064}
   - {fileID: 603342316}
   - {fileID: 993338855}
+  - {fileID: 954764755}

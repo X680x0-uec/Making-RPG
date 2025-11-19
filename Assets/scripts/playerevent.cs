@@ -96,41 +96,44 @@ public class playerevent : MonoBehaviour
         if (collision.CompareTag("library"))
         {
             itemnumber = 0;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.heal(player.maxHP);
             //HPを全回復
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("hunsui"))
         {
             itemnumber = 1;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.heal(player.maxHP);
             //HPを全回復
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("shop"))
         {
             itemnumber = 2;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.maxHP += 50;
             player.heal(player.maxHP);
             //HP最大値+50
             //HPを全回復
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("trainingroom"))
         {
             itemnumber = 3;
-            StartCoroutine(TEXTEVENT());
+            player.Attack += 10;
             //攻撃力+10
-            Destroy(collision.gameObject);
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("report1"))
         {
             itemnumber = 4;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.maxHP += 20;
             player.Attack += 5;
@@ -139,74 +142,82 @@ public class playerevent : MonoBehaviour
             //HP最大値+20
             //攻撃力+5
             //防御力+3
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("report2"))
         {
             itemnumber = 5;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.maxHP += 400;
             player.heal(player.maxHP);
+            player.SaveHPToGameManager();
             //HP最大値+400
             //HPを全回復
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("zangi"))
         {
             itemnumber = 6;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.heal(player.maxHP);
             //HPを全回復
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("switch2"))
         {
             itemnumber = 7;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.Attack += 30;
             //攻撃力+30
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("megane"))
         {
             itemnumber = 8;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.Defense += 5;
             player.heal(player.maxHP);
             //防御力+5
             //HPを全回復
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("redbull"))
         {
             itemnumber = 9;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.Attack += 20;
             player.heal(player.maxHP);
             //攻撃力+20
             //HPを全回復
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("battery"))
         {
             itemnumber = 10;
-            StartCoroutine(TEXTEVENT());
+            
 
             player.Attack += 20;
             player.heal(player.maxHP);
             //攻撃力+20
             //HPを全回復
-            Destroy(collision.gameObject);
+            
+            StartCoroutine(TEXTEVENT());
         }
     }
     IEnumerator TEXTEVENT()
     {
-
+        player.SaveHPToGameManager();
         // 配列の範囲外アクセスを防ぐ安全装置
         if (itemnumber < 0 || itemnumber >= itemtext.Length)
         {

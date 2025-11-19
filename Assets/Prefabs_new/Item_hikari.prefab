@@ -97,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6811002985989802940}
   - component: {fileID: -9076583334230441122}
+  - component: {fileID: 4758735264091800053}
   m_Layer: 0
   m_Name: Item_hikari
   m_TagString: Untagged
@@ -156,3 +157,16 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.8
+--- !u!114 &4758735264091800053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7003211791436723141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d551af3a18f724cefbdb704321078049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectID: 
