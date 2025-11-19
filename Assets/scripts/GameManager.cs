@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
     public string playerName = "";
     public float playerHP = 30f;
     public float playerHPnow = 30f;
-    public float playerMP = 100f;
-    public float playerMPnow = 100f;
+    public float playerMP = 0f;
+    public float playerMPnow = 0f;
     public float playerDefence = 10f;
     public float playerAttack = 7f;
 
