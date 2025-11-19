@@ -8,6 +8,7 @@ public class Panel : MonoBehaviour
 {
     private System.Random randomGenerator = new System.Random(); 
     public GameObject targetPanel;
+    public AudioSource SE_Log;
     public TMPro.TextMeshProUGUI displayMessageText;
     [SerializeField] private TextMeshProUGUI playerHPText;
     [SerializeField] private TextMeshProUGUI playerMPText;
@@ -57,6 +58,7 @@ public class Panel : MonoBehaviour
         foreach (char c in message)
         {
             displayMessageText.text += c;
+            SE_Log.Play();
             yield return new WaitForSeconds(0.05f); // 少し待つ
         }
 

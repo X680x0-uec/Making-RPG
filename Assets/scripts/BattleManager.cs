@@ -225,7 +225,7 @@ public class BattleManager : MonoBehaviour
         BGM_Victory.SetActive(true);
 
         yield return battleUI.ShowMessage($"{ enemy.charaName }を倒した！", deactivate: false);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         
         SceneManager.LoadScene("Main"); // Mainシーンに切り替え
     }
