@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   charaName: "\u30DA\u30F3\u30BD\u30FC\u30DE\u30F3"
-  maxHP: 88
-  Attack: 25
+  maxHP: 40
+  Attack: 20
   Defense: 0
   Speed: 0
   maxMP: 0

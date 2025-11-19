@@ -847,8 +847,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 334d0e8484ec1994a8120bd3032e90b7, type: 3}
-  m_Resource: {fileID: 8300000, guid: 334d0e8484ec1994a8120bd3032e90b7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c36c8f21f6e3eca42b562b8632ba368d, type: 3}
+  m_Resource: {fileID: 8300000, guid: c36c8f21f6e3eca42b562b8632ba368d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.54
   m_Pitch: 1
@@ -2900,7 +2900,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02422d6c02eb7af47ab56766a6688e2c, type: 2}
   - {fileID: 11400000, guid: f6f66420bb3260a42870a75f8501a2cb, type: 2}
   - {fileID: 11400000, guid: 573f317446b27ff4298a8fbeb7eac038, type: 2}
-  - {fileID: 11400000, guid: 81b44984bded7ce4f9b6a5b48bd42f98, type: 2}
+  - {fileID: 11400000, guid: 7cb0f6d904ab6ad40b831eb020da6d7e, type: 2}
   - {fileID: 11400000, guid: 81b44984bded7ce4f9b6a5b48bd42f98, type: 2}
   battleUI: {fileID: 434322210}
   ItemPanel: {fileID: 434322209}
