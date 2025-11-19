@@ -227,7 +227,15 @@ public class BattleManager : MonoBehaviour
         yield return battleUI.ShowMessage($"{ enemy.charaName }を倒した！", deactivate: false);
         yield return new WaitForSeconds(1.0f);
         
-        SceneManager.LoadScene("Main"); // Mainシーンに切り替え
+        if (enemy.type == EnemyData.Types.Boss)
+        {
+            SceneManager.LoadScene("Clear");
+        }
+        else
+        {
+            SceneManager.LoadScene("Main"); // Mainシーンに切り替え
+        }
+        
     }
 
     private IEnumerator LoseRoutine()
