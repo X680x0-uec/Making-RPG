@@ -53753,20 +53753,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 534762198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2fda90e828c544ba0271271cfb7ea4, type: 3}
+  m_Script: {fileID: 11500000, guid: adf4f34c1e52f2a48ad96ff98f7b90c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaName: 
-  maxHP: 0
-  currentHP: 0
-  Attack: 0
-  Defense: 0
-  Speed: 0
-  maxMP: 0
-  currentMP: 0
-  inventory: []
-  baseAttackMultipier: 1
-  baseDefenseMultipier: 1
+  target: {fileID: 867867147}
+  UI_talkbox: {fileID: 588791940}
+  waits: 0.05
+  itemtext: []
+  statustext: []
+  itemnumber: 0
 --- !u!1 &588791940
 GameObject:
   m_ObjectHideFlags: 0
@@ -54097,10 +54092,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce8fa5fcdc7943e3b943e6c1714cbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuPanel: {fileID: 751920702}
-  player: {fileID: 534762209}
-  itemButtonPrefab: {fileID: 5082251612469110498, guid: 0abf4624fd5bd4db2a9dab7362baef1f, type: 3}
-  buttonParentContainer: {fileID: 683772636}
 --- !u!1 &774474232
 GameObject:
   m_ObjectHideFlags: 0
@@ -66487,10 +66478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce8fa5fcdc7943e3b943e6c1714cbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuPanel: {fileID: 751920702}
-  player: {fileID: 0}
-  itemButtonPrefab: {fileID: 5082251612469110498, guid: 0abf4624fd5bd4db2a9dab7362baef1f, type: 3}
-  buttonParentContainer: {fileID: 683772636}
 --- !u!114 &1812358739
 MonoBehaviour:
   m_ObjectHideFlags: 0

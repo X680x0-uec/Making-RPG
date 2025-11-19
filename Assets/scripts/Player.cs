@@ -136,9 +136,9 @@ public class Player : Figure
     }
 
     // 無駄行動(HP全回復 確率 0.01%)
-    public void heal()
+    public void heal(float amount)
     {
-        currentHP = maxHP;
+        currentHP = amount;
         TakeDamage(0f);
     }
 
@@ -159,6 +159,10 @@ public class Player : Figure
         {
             GameManager.Instance.playerHPnow = this.currentHP;
             
+            // ★ 追加：最大値やステータスも保存する！
+            GameManager.Instance.playerHP = this.maxHP;       // 最大HP
+            GameManager.Instance.playerAttack = this.Attack;  // 攻撃力
+            GameManager.Instance.playerDefence = this.Defense;// 防御力
         }
     }
 }

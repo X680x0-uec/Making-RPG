@@ -153,7 +153,7 @@ public class BattleManager : MonoBehaviour
         // 50%の確立で逃げ切ることができる
         yield return battleUI.ShowMessage($"{ player.charaName }は逃げようとした...");
         int randomnumber = UnityEngine.Random.Range(0, Mathf.FloorToInt(enemy.maxHP));
-        if (randomnumber >= (enemy.maxHP - player.maxHP / 1.5) && enemy.type != EnemyData.Types.Boss)
+        if (randomnumber >= (enemy.maxHP - player.maxHP / 1.6f) && enemy.type != EnemyData.Types.Boss)
         {
             yield return battleUI.ShowMessage("逃げ切れた！", deactivate: false);
             player.SaveHPToGameManager(); // HPをGameManagerに保存する
@@ -173,7 +173,7 @@ public class BattleManager : MonoBehaviour
         if (Random.value > 0.999f)
         {
             yield return battleUI.ShowMessage($"{ player.charaName }の願いは天に届いた！");
-            player.heal();
+            player.heal(player.maxHP);
             yield return battleUI.ShowMessage($"なんと{ player.charaName }のHPが全回復した！");
         }
         else
