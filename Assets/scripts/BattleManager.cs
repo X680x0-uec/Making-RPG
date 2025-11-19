@@ -16,9 +16,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<EnemyData> enemyDatabase; // ScriptableObject
 
     [SerializeField] private Panel battleUI;
-    public GameObject ItemPanel;
     public GameObject BGM_Battle;
     public GameObject BGM_BossBattle;
+    public GameObject BGM_Victory;
+
+    public AudioSource SE_Click;
+    public AudioSource SE_Attack;
 
     private Vector2 rightTransform;
     private RectTransform transform;
@@ -26,7 +29,6 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        rightTransform = ItemPanel.GetComponent<RectTransform>().anchoredPosition;
         StartCoroutine(SetupBattle());
     }
 
@@ -87,6 +89,7 @@ public class BattleManager : MonoBehaviour
     {
         if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
         onGoing = true;
+        SE_Click.Play();
         StartCoroutine(PlayerAttackRoutine());
     }
 
@@ -94,6 +97,7 @@ public class BattleManager : MonoBehaviour
     {
         if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
         onGoing = true;
+        SE_Click.Play();
         StartCoroutine(PlayerMagicRoutine());
     }
 
@@ -101,6 +105,7 @@ public class BattleManager : MonoBehaviour
     {
         if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
         onGoing = true;
+        SE_Click.Play();
         StartCoroutine(PlayerDefendRoutine());
     }
 
@@ -108,6 +113,7 @@ public class BattleManager : MonoBehaviour
     {
         if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
         onGoing = true;
+        SE_Click.Play();
         StartCoroutine(PlayerEscapeRoutine());
     }
 
@@ -115,6 +121,7 @@ public class BattleManager : MonoBehaviour
     {
         if (currentState != BattleState.PLAYERTURN || isUsingItemPanel || onGoing) return;
         onGoing = true;
+        SE_Click.Play();
         StartCoroutine(PlayerItemRoutine());
     }
 
@@ -122,6 +129,7 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         yield return battleUI.ShowMessage($"{ player.charaName }の攻撃！");
+        SE_Attack.Play();
         yield return battleUI.ShowMessage($"{ enemy.charaName }に{ enemy.TakeDamage(player.EffectiveAttack) }のダメージを与えた！");
 
         if (!enemy.isDead) {
@@ -151,26 +159,35 @@ public class BattleManager : MonoBehaviour
     {
         // battleUI.SetPlayerControls(false);
         // 50%の確立で逃げ切ることができる
-        yield return battleUI.ShowMessage($"{ player.charaName }は逃げようとした...");
         int randomnumber = UnityEngine.Random.Range(0, Mathf.FloorToInt(enemy.maxHP));
-        if (randomnumber >= (enemy.maxHP - player.maxHP / 1.6f) && enemy.type != EnemyData.Types.Boss)
+        if (enemy.type == EnemyData.Types.Boss)
         {
-            yield return battleUI.ShowMessage("逃げ切れた！", deactivate: false);
-            player.SaveHPToGameManager(); // HPをGameManagerに保存する
-            SceneManager.LoadScene("Main"); // Mainを呼び出す。
+            yield return battleUI.ShowMessage("絶対に負けられない戦いがここにある！");
+            StartPlayerTurn();
         }
         else
         {
-            yield return battleUI.ShowMessage("逃げ切れなかった！");
-            StartCoroutine(EnemyTurnRoutine());
+            yield return battleUI.ShowMessage($"{ player.charaName }は逃げようとした...");
+            if (randomnumber >= (enemy.maxHP - player.maxHP / 1.6f))
+            {
+                yield return battleUI.ShowMessage("逃げ切れた！", deactivate: false);
+                player.SaveHPToGameManager(); // HPをGameManagerに保存する
+                SceneManager.LoadScene("Main"); // Mainを呼び出す。
+            }
+            else
+            {
+                yield return battleUI.ShowMessage("逃げ切れなかった！");
+                StartCoroutine(EnemyTurnRoutine());
+            }
         }
+        
     }
 
     private IEnumerator PlayerItemRoutine()
     {
         yield return new WaitForEndOfFrame();
         yield return battleUI.ShowMessage($"{ player.charaName }は天に向かって祈りをささげた...！");
-        if (Random.value > 0.999f)
+        if (Random.value >= 0.99f)
         {
             yield return battleUI.ShowMessage($"{ player.charaName }の願いは天に届いた！");
             player.heal(player.maxHP);
@@ -187,6 +204,7 @@ public class BattleManager : MonoBehaviour
     {
         currentState = BattleState.ENEMYTURN;
         yield return battleUI.ShowMessage($"{ enemy.charaName }の攻撃！");
+        SE_Attack.Play();
         yield return battleUI.ShowMessage($"{ player.charaName }は{ player.TakeDamage(enemy.Attack) }のダメージを受けた！");
 
         if (!player.isDead) {
@@ -200,7 +218,15 @@ public class BattleManager : MonoBehaviour
     {
         player.SaveHPToGameManager(); // HPをGameManagerに保存する
         Destroy(enemy.gameObject);
+
+        // BGM
+        BGM_Battle.SetActive(false);
+        BGM_BossBattle.SetActive(false);
+        BGM_Victory.SetActive(true);
+
         yield return battleUI.ShowMessage($"{ enemy.charaName }を倒した！", deactivate: false);
+        yield return new WaitForSeconds(2f);
+        
         SceneManager.LoadScene("Main"); // Mainシーンに切り替え
     }
 
