@@ -8,24 +8,24 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/Scenes/Gameover.unity
-    guid: 8fbe08f210206f940a357d2e266ffda3
   - enabled: 0
     path: Assets/Scenes/Battle.unity
-    guid: 70565e66fa7168846aa53e952483efd7
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 09cacadb7a723b248b0c0167447f7a5b
+    guid: 875ef41ec99d4496cb9dd9d507f31f20
   - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: 0e08cdd00b15d494c8b733843e7912cc
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 09cacadb7a723b248b0c0167447f7a5b
   - enabled: 0
     path: Assets/Scenes/Agora.unity
     guid: d7091d3976637f345a732b71a686f700
   - enabled: 1
     path: Assets/Scenes/New Battle.unity
     guid: 271b35263649247a08991fb8267b12b9
+  - enabled: 1
+    path: Assets/Scenes/Gameover.unity
+    guid: 8fbe08f210206f940a357d2e266ffda3
   - enabled: 1
     path: Assets/Scenes/Clear.unity
     guid: 5f7349647fbcf6e4fbfc827923e57bdc

@@ -16,6 +16,7 @@ public class playerevent : MonoBehaviour
     [SerializeField] private string[] itemtext;
     [SerializeField] private string[] statustext;
     public int itemnumber = 0;
+    private bool collision_entered = false;
 
     // プレイヤーのステータス操作用
     private Player player;
@@ -39,10 +40,10 @@ public class playerevent : MonoBehaviour
 
         statustext[0] = "HPが全回復した！";
         statustext[1] = "HPが全回復した！";
-        statustext[2] = "最大HPが50上がった！";
-        statustext[3] = "攻撃力が10上がった！";
+        statustext[2] = "最大HPが100上がった！";
+        statustext[3] = "攻撃力が50上がった！";
         statustext[4] = "最大HPが20上がった！さらに攻撃力が5、防御力が3上がった！";
-        statustext[5] = "最大HPが400上がった！HPが全回復した！";
+        statustext[5] = "最大HPが500上がった！HPが全回復した！";
         statustext[6] = "HPが全回復した！";
         statustext[7] = "攻撃力が30上がった！";
         statustext[8] = "防御力が5上がった！HPが全回復した！";
@@ -91,7 +92,7 @@ public class playerevent : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (player == null) return;
+        if (player == null || collision_entered) return;
 
         if (collision.CompareTag("library"))
         {
@@ -116,9 +117,9 @@ public class playerevent : MonoBehaviour
             itemnumber = 2;
             
 
-            player.maxHP += 50;
+            player.maxHP += 100;
             player.heal(player.maxHP);
-            //HP最大値+50
+            //HP最大値+100
             //HPを全回復
             
             StartCoroutine(TEXTEVENT());
@@ -126,8 +127,8 @@ public class playerevent : MonoBehaviour
         if (collision.CompareTag("trainingroom"))
         {
             itemnumber = 3;
-            player.Attack += 10;
-            //攻撃力+10
+            player.Attack += 50;
+            //攻撃力+50
             StartCoroutine(TEXTEVENT());
         }
         if (collision.CompareTag("report1"))
@@ -150,10 +151,10 @@ public class playerevent : MonoBehaviour
             itemnumber = 5;
             
 
-            player.maxHP += 400;
+            player.maxHP += 500;
             player.heal(player.maxHP);
             player.SaveHPToGameManager();
-            //HP最大値+400
+            //HP最大値+550
             //HPを全回復
             
             StartCoroutine(TEXTEVENT());
@@ -225,7 +226,9 @@ public class playerevent : MonoBehaviour
             yield break;
         }
 
+        collision_entered = true;
         yield return StartCoroutine(DisplayLine(itemtext[itemnumber], false));
         yield return StartCoroutine(DisplayLine(statustext[itemnumber], true));
+        collision_entered = false;
     }
 }

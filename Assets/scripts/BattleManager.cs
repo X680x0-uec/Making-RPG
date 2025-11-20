@@ -248,7 +248,8 @@ public class BattleManager : MonoBehaviour
                 case 1:
                     yield return battleUI.ShowMessage("何も言い返せない自分が悔しい...");
                     SE_Attack.Play();
-                    yield return battleUI.ShowMessage($"クリティカルヒット！{ player.charaName }は{ player.TakeDamage(enemy.Attack * 2.0f) }のダメージを受けた！");
+                    float damage_range = UnityEngine.Random.Range(15, 20) / 10f;
+                    yield return battleUI.ShowMessage($"クリティカルヒット！{ player.charaName }は{ player.TakeDamage(enemy.Attack * damage_range) }のダメージを受けた！");
                     break;
             }
         }
@@ -292,7 +293,7 @@ public class BattleManager : MonoBehaviour
             {
                 return "君の考察は...やり直したほうがいいね";
             }
-            else if (player.Attack >= 70)
+            else if (player.Attack >= 100)
             {
                 return "君のレポートは...なかなか読みごたえがありますね";
             }
