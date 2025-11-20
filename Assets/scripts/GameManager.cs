@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    // リストの中身をすべてリセット
+    public void ResetCollectedItem()
+    {
+        collectedItems.Clear();
+    }
+
     // ★ 追加：アイテム取得を記録するメソッド
     public void AddCollectedItem(string itemId)
     {
@@ -50,11 +56,12 @@ public class GameManager : MonoBehaviour
         playerName = "勇者";
         playerHP = 30f;
         playerHPnow = 30f;
-        playerMP = 100f;
-        playerMPnow = 100f;
+        playerMP = 0f;
+        playerMPnow = 0f;
         playerDefence = 10f;
         playerAttack = 7f;
         enemyNumberToBattle = 0;
+        ResetCollectedItem();
         Debug.Log("GameManagerのデータをリセットしました。");
     }
 
